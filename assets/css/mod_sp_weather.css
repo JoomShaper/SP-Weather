@@ -1,0 +1,20 @@
+/*------------------------------------------------------------------------
+# mod_sp_weather - Weather Module by JoomShaper.com
+# ------------------------------------------------------------------------
+# Author    JoomShaper http://www.joomshaper.com
+# Copyright (C) 2010 - 2012 JoomShaper.com. All Rights Reserved.
+# License - http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
+# Websites: http://www.joomshaper.com
+-------------------------------------------------------------------------*/
+.weather_sp1{padding:5px}
+.weather_sp1_c{margin:0 0 10px}
+.weather_sp1_cleft{float:left}
+p.spw_current_temp{font-size:18px;margin:-30px 0 0 15px}
+.weather_sp1_cright{float:left;margin:0 0 0 -44px}
+p.weather_sp1_city{font-size:24px;line-height:24px;font-weight:700;margin:15px 0 0;padding:0}
+.block_even,.block_odd{text-align:center}
+span.weather_sp1_temp,span.weather_sp1_list_temp{font-size:10px}
+.list_even,.list_odd{width:100%;border-top:1px dashed #e0e0e0}
+span.weather_sp1_list_day,span.weather_sp1_list_temp,span.weather_sp1_list_icon{height:32px;line-height:32px;display:block;float:left;width:33%}
+img.spw_icon_big{height:96px}
+img.spw_icon{height:32px}

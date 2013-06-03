@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="module" version="2.5" client="site" method="upgrade">
+	<name>SP Weather</name>
+	<author>JoomShaper.com</author>
+	<creationDate>Sep 2012</creationDate>
+	<copyright>Copyright (C) 2010 - 2012 JoomShaper.com. All rights reserved.</copyright>
+	<license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
+	<authorEmail>support@joomshaper.com</authorEmail>
+	<authorUrl>www.joomshaper.com</authorUrl>
+	<version>2.2.2</version>
+	<description>Weather module by JoomShaper.com using Yahoo weather API.</description>
+
+	<languages>
+		<language tag="en-GB">language/en-GB.mod_sp_weather.ini</language>
+	</languages>
+		
+	<files>
+		<filename module="mod_sp_weather">mod_sp_weather.php</filename>
+		<folder>tmpl/</folder>
+		<folder>assets/</folder>
+		<folder>language/</folder>
+		<filename>helper.php</filename>
+		<filename>index.html</filename>
+	</files>
+	<config>
+		<fields name="params">
+			<fieldset name="basic">
+				<field name="location" type="text" default="London" label="LOCATION" description="LOCATION_DESC" />
+				<field name="locationTranslated" type="text" default="" label="LOCATION_TRANSLATED" description="LOCATION_TRANSLATED_DESC" />
+				<field name="city" type="radio" class="btn-group" default="1" label="CITY" description="CITY_DESC">
+					<option value="0">HIDE</option>
+					<option value="1">SHOW</option>
+				</field>
+				<field name="condition" type="radio" class="btn-group" default="1" label="CONDITION" description="CONDITION_DESC">
+					<option value="0">HIDE</option>
+					<option value="1">SHOW</option>
+				</field>
+				<field name="humidity" type="radio" class="btn-group" default="1" label="HUMIDITY" description="HUMIDITY_DESC">
+					<option value="0">HIDE</option>
+					<option value="1">SHOW</option>
+				</field>		
+				<field name="wind" type="radio" class="btn-group" default="1" label="WIND" description="WIND_DESC">
+					<option value="0">HIDE</option>
+					<option value="1">SHOW</option>
+				</field>
+				<field name="forecast" type="list" default="4" label="FORECAST" description="FORECAST_DESC">
+					<option value="2">1DAY</option>
+					<option value="3">2DAYS</option>			
+					<option value="4">3DAYS</option>			
+					<option value="5">4DAYS</option>
+					<option value="6">5DAYS</option>
+					<option value="7">6DAYS</option>
+					<option value="8">1WEEK</option>
+					<option value="disabled">DISABLED</option>			
+				</field>		
+				<field name="layout" type="list" default="block" label="LAYOUT" description="LAYOUT_DESC">
+					<option value="block">BlOCK</option>
+					<option value="list">LIST</option>			
+				</field>
+				<field name="separator" type="text" default="/" label="SEPARATOR" description="SEPARATOR_DESC" />			
+				<field name="tempUnit" type="list" default="c" label="UNIT" description="UNIT_DESC">
+					<option value="c">CELSIUS</option>
+					<option value="f">FAHRENHEIT</option>
+				</field>		
+			</fieldset>	
+			
+			<fieldset name="advanced">
+				<field name="moduleclass_sfx" type="text" default="" label="MODSFX" description="MODSFX_DESC" />			
+				<field name="cache" type="hidden" default="0"/>
+				<field name="useCache" type="list" default="1" label="USECACHE" description="USECACHE_DESC">
+					<option value="1">ENABLED</option>
+					<option value="0">DISABLED</option>
+				</field>
+				<field name="cacheTime" type="text" default="900" label="CACHETIME" description="CACHETIME_DESC"/>
+			</fieldset>
+		</fields>
+	</config>
+</extension>
