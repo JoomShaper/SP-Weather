@@ -3,7 +3,7 @@
     # mod_sp_weather - Weather Module by JoomShaper.com
     # ------------------------------------------------------------------------
     # author    JoomShaper http://www.joomshaper.com
-    # Copyright (C) 2010 - 2012 JoomShaper.com. All Rights Reserved.
+    # Copyright (C) 2010 - 2014 JoomShaper.com. All Rights Reserved.
     # @license - http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL
     # Websites: http://www.joomshaper.com
     -------------------------------------------------------------------------*/
@@ -253,7 +253,7 @@
                     array($URL),
                     (60*60*60),
                     array($this,'onWoeIdError')
-                );
+                    );
             } else {
                 $data = $this->getCurl($URL);
             }
@@ -280,7 +280,7 @@
                     array($URL),
                     (60*60*60),
                     array($this,'onLocationError')
-                );
+                    );
             } else {
                 $data = $this->getCurl($URL);
             }
@@ -308,7 +308,7 @@
                     array($URL),
                     (int) $this->params->get('cacheTime'),
                     array($this,'onDataError')
-                );
+                    );
             } else {
                 $data = $this->getCurl($URL);
             }
@@ -339,7 +339,7 @@
                     array($URL),
                     (int) $this->params->get('cacheTime'),
                     array($this,'onForecastError')
-                );
+                    );
 
             } else {
                 $data = $this->getCurl($URL);
@@ -413,6 +413,72 @@
             $icon =  sprintf($this->iconURL,$condition,$at);
             return  $icon;
         } 
+
+        /**
+        * weather condition to icon font
+        * 
+        * @param mixed $icon
+        * @param mixed $path
+        */
+        public function iconFont($condition) {
+
+            $night      = in_array($condition, $this->nightIDs, true)?'-night':'';
+
+            $fontIcon   = array(
+                "0"     => 'other',
+                "1"     => 'storm',
+                "2"     => 'storm',
+                "3"     => 'chance-of-storm',
+                "4"     => 'thunderstorm',          
+                "5"     => 'rain-and-snow',
+                "6"     => 'sleet',
+                "7"     => 'sleet',     
+                "8"     => 'rain',    
+                "9"     => 'rain',     
+                "10"    => 'rain',
+                "11"    => 'rain',
+                "12"    => 'rain',
+                "13"    => 'chance-of-snow',                               
+                "14"    => 'snow',
+                "15"    => 'snow',
+                "16"    => 'snow',
+                "17"    => 'chance-of-storm',  
+                "18"    => 'rain',
+                "19"    => 'dusty',
+                "20"    => 'foggy',
+                "21"    => 'hazy',
+                "22"    => 'smoke',
+                "23"    => 'cloudy',
+                "24"    => 'cloudy',      
+                "25"    => 'snow',
+                "26"    => 'cloudy',
+                "27"    => 'mostly-cloudy',
+                "28"    => 'mostly-cloudy',
+                "29"    => 'partly-cloudy',
+                "30"    => 'partly-cloudy',
+                "31"    => 'sunny',
+                "32"    => 'sunny',
+                "33"    => 'sunny',
+                "34"    => 'partly-cloudy',
+                "35"    => 'thunderstorm',
+                "36"    => 'sunny',
+                "37"    => 'thunderstorm',
+                "38"    => 'chance-of-storm',
+                "39"    => 'chance-of-storm',
+                "40"    => 'rain',
+                "41"    => 'snow',
+                "42"    => 'snow',
+                "43"    => 'snow',
+                "44"    => 'partly-cloudy',
+                "45"    => 'chance-of-storm',
+                "46"    => 'chance-of-snow',
+                "47"    => 'chance-of-storm',
+                "3200"  => 'other'
+                );
+
+                return $fontIcon[$condition] . $night;
+
+        }
 
         /**
         * Run function to load data from source

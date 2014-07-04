@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<extension type="module" version="2.5" client="site" method="upgrade">
+<extension type="module" version="3.3" client="site" method="upgrade">
 	<name>SP Weather</name>
 	<author>JoomShaper.com</author>
 	<creationDate>Sep 2012</creationDate>
-	<copyright>Copyright (C) 2010 - 2012 JoomShaper.com. All rights reserved.</copyright>
+	<copyright>Copyright (C) 2010 - 2014 JoomShaper.com. All rights reserved.</copyright>
 	<license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
 	<authorEmail>support@joomshaper.com</authorEmail>
 	<authorUrl>www.joomshaper.com</authorUrl>
-	<version>2.2.2</version>
+	<version>2.2.3</version>
 	<description>Weather module by JoomShaper.com using Yahoo weather API.</description>
 
 	<languages>
@@ -53,7 +53,7 @@
 					<option value="8">1WEEK</option>
 					<option value="disabled">DISABLED</option>			
 				</field>		
-				<field name="layout" type="list" default="block" label="LAYOUT" description="LAYOUT_DESC">
+				<field name="tmpl_layout" type="list" default="block" label="LAYOUT" description="LAYOUT_DESC">
 					<option value="block">BlOCK</option>
 					<option value="list">LIST</option>			
 				</field>
@@ -65,6 +65,7 @@
 			</fieldset>	
 			
 			<fieldset name="advanced">
+				<field name="layout" type="modulelayout" label="JFIELD_ALT_LAYOUT_LABEL" description="JFIELD_ALT_MODULE_LAYOUT_DESC" />
 				<field name="moduleclass_sfx" type="text" default="" label="MODSFX" description="MODSFX_DESC" />			
 				<field name="cache" type="hidden" default="0"/>
 				<field name="useCache" type="list" default="1" label="USECACHE" description="USECACHE_DESC">
