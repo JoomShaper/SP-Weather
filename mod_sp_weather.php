@@ -26,7 +26,7 @@
         JFactory::getApplication()->enqueueMessage( implode('<br /><br />', $helper->error()) , 'error');
     } else {
 
-        if ( ($layout == 'default') || ($layout == 'block') )
+        if ( ($layout == '_:default') || ($layout == 'block') )
         {
             $document->addStylesheet(JURI::base(true) . '/modules/'.$moduleName.'/assets/css/' . $moduleName . '.css');
         }
