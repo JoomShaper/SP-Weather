@@ -44,13 +44,13 @@
 					<option value="1">SHOW</option>
 				</field>
 				<field name="forecast" type="list" default="4" label="FORECAST" description="FORECAST_DESC">
-					<option value="2">1DAY</option>
-					<option value="3">2DAYS</option>			
-					<option value="4">3DAYS</option>			
-					<option value="5">4DAYS</option>
-					<option value="6">5DAYS</option>
-					<option value="7">6DAYS</option>
-					<option value="8">1WEEK</option>
+					<option value="2">SP_ONE_DAY</option>
+					<option value="3">SP_TWO_DAYS</option>			
+					<option value="4">SP_THREE_DAYS</option>			
+					<option value="5">SP_FOUR_DAYS</option>
+					<option value="6">SP_FIVE_DAYS</option>
+					<option value="7">SP_SIX_DAYS</option>
+					<option value="8">SP_ONE_WEEK</option>
 					<option value="disabled">DISABLED</option>			
 				</field>		
 				<field name="tmpl_layout" type="list" default="block" label="LAYOUT" description="LAYOUT_DESC">

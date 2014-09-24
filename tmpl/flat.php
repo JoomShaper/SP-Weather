@@ -26,7 +26,7 @@
                     </div>
                     <div class="sp-weather-current-temp">
                         <?php if ($params->get('tempUnit')=='f') { ?>
-                        <?php echo  $data['item']['condition']['temp']. JText::_('SP_WEATHER_F'); ?>    
+                        <?php echo  $data['item']['condition']['temp']. JText::_('SP_WEATHER_F'); ?>
                         <?php } else { ?>
                         <?php echo $data['item']['condition']['temp']. JText::_('SP_WEATHER_C'); ?>
                         <?php } ?>
@@ -35,7 +35,7 @@
 
                 <div class="media-body">
                     <?php if($params->get('city')==1) { ?>
-                    <h4 class="media-heading sp-weather-city"><?php echo $location ?></h4> 
+                    <h4 class="media-heading sp-weather-city"><?php echo $location ?></h4>
                     <?php } ?>
 
                     <?php if( ($params->get('condition')) && ($params->get('humidity')) ) { ?>
@@ -55,15 +55,15 @@
 
                     <?php if($params->get('wind')==1) { ?>
                     <div class="spw_row">
-                        <?php echo JText::_('SP_WEATHER_WIND');  ?>: <?php 
+                        <?php echo JText::_('SP_WEATHER_WIND');  ?>: <?php
                         $compass = array('N', 'NNE', 'NE', 'ENE', 'E', 'ESE', 'SE', 'SSE', 'S', 'SSW', 'SW', 'WSW', 'W', 'WNW', 'NW', 'NNW', 'N');
                         $data['wind']['direction'] = $compass[round($data['wind']['direction'] / 22.5)];
-                        echo JText::_($data['wind']['direction']) . JText::_('SP_WEATHER_AT') . $helper->Numeric2Lang($data['wind']['speed']) . ' ' . JText::_(strtoupper($data['units']['speed'])); ?>
+                        echo JText::_($data['wind']['direction']) . JText::_('SP_WEATHER_AT') . $helper->Numeric2Lang($data['wind']['speed']) . ' ' . JText::_(strtoupper(str_replace('/','',$data['units']['speed']))); ?>
                     </div>
                     <?php } ?>
 
                 </div>
-            </div><!--/.media-->	
+            </div><!--/.media-->
         </div><!--/.sp-weather-current-->
 
         <?php if ($params->get('forecast')!='disabled') { ?>
@@ -75,7 +75,7 @@
             unset($forecast[0]);
 
             foreach($forecast as $i=>$value )
-            { 
+            {
 
                 if($fcast<$j) break;
 
@@ -97,8 +97,8 @@
                             </div>
                         </div>
                     </div>
-                </div>				
-                <?php } else { ?> 
+                </div>
+                <?php } else { ?>
                 <div class="grid grid-<?php echo ($i%2 ? 'even' : 'odd') ?>" style="width:<?php echo round(100/$fcast) ?>%">
                     <div class="media">
                         <div class="pull-left">
