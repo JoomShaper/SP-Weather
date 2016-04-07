@@ -297,7 +297,7 @@
         {
 
 
-            $query = 'select * from xml where url="http://weather.yahooapis.com/forecastrss?w='.$this->woeid.'&u='.$this->params->get('tempUnit').'"';
+            $query = 'select * from xml where url="http://xml.weather.yahoo.com/forecastrss?w='.$this->woeid.'&u='.$this->params->get('tempUnit').'"';
 
             $URL = $this->makeYQL($query);
             if( $this->params->get('useCache')==='1' )
