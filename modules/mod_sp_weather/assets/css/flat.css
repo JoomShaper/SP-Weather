@@ -1,0 +1,203 @@
+/**
+ * @package mod_sp_weather
+ * @author JoomShaper http://www.joomshaper.com
+ * @copyright Copyright (c) 2010 - 2019 JoomShaper
+ * @license http://www.gnu.org/licenses/gpl-2.0.html GNU/GPLv2 or later
+*/
+
+@font-face {
+    font-family: 'MeteoconsRegular';
+    src: url('../fonts/meteocons-webfont.eot');
+    src: url('../fonts/meteocons-webfont.eot?#iefix') format('embedded-opentype'),
+    url('../fonts/meteocons-webfont.woff') format('woff'),
+    url('../fonts/meteocons-webfont.ttf') format('truetype'),
+    url('../fonts/meteocons-webfont.svg#MeteoconsRegular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+/*Layout*/
+.sp-weather-current .sp-weather-icon {
+    font-size: 48px;
+    line-height: 48px;
+}
+
+.sp-weather-current .sp-weather-icon img {
+    max-width: 48px;
+}
+
+.sp-weather-current .sp-weather-current-temp {
+    display: block;
+    text-align: center;
+}
+
+.sp-weather-forcasts {
+    margin-top: 10px;
+}
+.sp-weather .grid {
+    float: left;
+}
+
+.sp-weather-forcasts .sp-weather-icon {
+    font-size: 24px;
+    line-height: 26px;
+}
+
+.sp-weather-forcasts .sp-weather-icon img {
+    max-width: 24px;
+}
+
+.sp-weather-forcasts .list {
+    padding: 10px 0;
+    border-bottom: 1px solid #f5f5f5;
+}
+
+.sp-weather-forcasts .list:first-child {
+    border-top: 1px solid #f5f5f5;
+}
+
+/*Media*/
+.flat-layout .media,
+.flat-layout .media-body {
+    overflow: hidden;
+    zoom: 1;
+}
+.flat-layout .media,
+.flat-layout .media .media {
+    margin-top: 15px;
+}
+.flat-layout .media:first-child {
+    margin-top: 0;
+}
+.flat-layout .media-object {
+    display: block;
+}
+.flat-layout .media-heading {
+    margin: 0 0 5px;
+}
+.flat-layout .media > .pull-left {
+    margin-right: 10px;
+}
+.flat-layout .media > .pull-right {
+    margin-left: 10px;
+}
+.flat-layout .media-list {
+    padding-left: 0;
+    list-style: none;
+}
+
+/*Icons*/
+i[class^="meteocons-"]:before {
+    display: inline-block;
+    font-family: 'MeteoconsRegular';
+    font-style: normal;
+}
+
+.meteocons-storm:before {
+    content: 'Z';
+}
+
+.meteocons-chance-of-storm:before {
+    content: 'O';
+}
+
+.meteocons-chance-of-storm-night:before {
+    content: '6';
+}
+
+.meteocons-thunderstorm:before {
+    content: '0';
+}
+
+.meteocons-rain-and-snow:before {
+    content: 'X';
+}
+
+.meteocons-sleet:before {
+    content: 'X';
+}
+
+.meteocons-rain:before {
+    content: 'R';
+}
+
+.meteocons-rain-night:before {
+    content: 'S';
+}
+
+.meteocons-snow:before {
+    content: 'W';
+}
+
+.meteocons-snow-night:before {
+    content: 'X';
+}
+
+.meteocons-chance-of-snow:before {
+    content: 'U';
+}
+
+.meteocons-chance-of-snow:before {
+    content: '"';
+}
+
+.meteocons-dusty:before {
+    content: 'E';
+}
+
+.meteocons-foggy:before {
+    content: 'J';
+}
+
+.meteocons-foggy-night:before {
+    content: 'K';
+}
+
+.meteocons-hazy:before {
+    content: 'L';
+}
+
+.meteocons-hazy-night:before {
+    content: 'K';
+}
+
+.meteocons-smoke:before {
+    content: 'M';
+}
+
+.meteocons-smoke-night:before {
+    content: 'K';
+}
+
+.meteocons-cloudy:before {
+    content: 'N';
+}
+
+.meteocons-mostly-cloudy:before {
+    content: '3';
+}
+
+.meteocons-mostly-cloudy-night:before {
+    content: '4';
+}
+
+.meteocons-partly-cloudy:before {
+    content: 'H';
+}
+
+.meteocons-partly-cloudy-night:before {
+    content: 'I';
+}
+
+.meteocons-sunny:before {
+    content: 'B';
+}
+
+.meteocons-sunny-night:before {
+    content: 'C';
+}
+
+.meteocons-other:before {
+    content: ')';
+}
