@@ -2,12 +2,15 @@
 /**
  * @package mod_sp_weather
  * @author JoomShaper http://www.joomshaper.com
- * @copyright Copyright (c) 2010 - 2019 JoomShaper
+ * @copyright Copyright (c) 2010 - 2021 JoomShaper
  * @license http://www.gnu.org/licenses/gpl-2.0.html GNU/GPLv2 or later
 */
 
 //no direct accees
 defined ('_JEXEC') or die ('Restricted access');
+
+use Joomla\CMS\Language\Text;
+use Joomla\CMS\Filesystem\Folder;
 
 class modSPWeatherHelper {
     
@@ -170,9 +173,9 @@ class modSPWeatherHelper {
                 $this->api  = 'https://weather-ydn-yql.media.yahoo.com/forecastrss';      
             } else {
                 if($this->getdataby == 'locaion_id') {
-                    $this->api  = 'http://api.openweathermap.org/data/2.5/forecast/daily?id='. $this->locationid .'&units=metric&cnt='. $this->forecast_limit .'&lang=en&appid=' . $this->api_key;
+                    $this->api  = 'http://api.openweathermap.org/data/2.5/forecast?id='. $this->locationid .'&units=metric&cnt='. $this->forecast_limit .'&lang=en&appid=' . $this->api_key;
                 } else {
-                    $this->api  = 'http://api.openweathermap.org/data/2.5/forecast/daily?q='. $this->location .'&units=metric&cnt='. $this->forecast_limit .'&lang=en&appid=' . $this->api_key;
+                    $this->api  = 'http://api.openweathermap.org/data/2.5/forecast?q='. $this->location .'&units=metric&cnt='. $this->forecast_limit .'&lang=en&appid=' . $this->api_key;
                 }
             }
         } else {
@@ -203,8 +206,8 @@ class modSPWeatherHelper {
         $results['data'] = array();
         // check cache dir or create cache dir
         $cache_path = JPATH_CACHE.'/'.$this->moduledir;
-        if (!JFolder::exists($cache_path)){
-            JFolder::create(JPATH_CACHE.'/'.$this->moduledir.'/'); 
+        if (!Folder::exists($cache_path)){
+            Folder::create(JPATH_CACHE.'/'.$this->moduledir.'/'); 
         }
         
         if ($type == 'forecast') { // if data is forecast
@@ -215,7 +218,7 @@ class modSPWeatherHelper {
 
         // check cache file is exist and time isn't over:: default time is: 30 mins
         if (file_exists($cache_file) && (filemtime($cache_file) > (time() - 60 * $this->cache_time ))) {
-            $results['data'] =  JFile::read($cache_file);
+            $results['data'] =  file_get_contents($cache_file);
 		} else {
             if($this->platform == 'yahoo') {
                 $results['data'] = self::getYahooWeatherData();
@@ -341,7 +344,7 @@ class modSPWeatherHelper {
         $formated = '';
         foreach($number as $no) {
             if (ctype_digit($no)) {
-                $formated.=JText::_($prefix . $no);    
+                $formated.=Text::_($prefix . $no);    
             } else $formated.=$no;
         }
         return $formated;
@@ -357,7 +360,7 @@ class modSPWeatherHelper {
     public function txt2lng($text) {
         $trans = array(" " => "_", "/" => "_", "(" => "", ')'=>'');
         $text = strtr($text, $trans);
-        return JText::_('SP_WEATHER_'.strtoupper($text));
+        return Text::_('SP_WEATHER_'.strtoupper($text));
     }
 
     /**
@@ -369,7 +372,7 @@ class modSPWeatherHelper {
     */
     public function convertUnit($value, $unit) {    
         $txt  = $this->Numeric2Lang($value);
-        $txt .= ( strtolower($unit)=='c') ? JText::_('SP_WEATHER_'. 'C') : JText::_('SP_WEATHER_'. 'F');
+        $txt .= ( strtolower($unit)=='c') ? Text::_('SP_WEATHER_'. 'C') : Text::_('SP_WEATHER_'. 'F');
         return $txt;
     }    
 
@@ -501,14 +504,14 @@ class modSPWeatherHelper {
             $this->results['status'] = false;
             $this->results['message']  = '';
             if($platform) {
-                $platform_error = JText::_('MOD_SPWEATHER_ERROR_PLATFORM_'. strtoupper($this->platform));
+                $platform_error = Text::_('MOD_SPWEATHER_ERROR_PLATFORM_'. strtoupper($this->platform));
             }
             if ($message == 'INSERT_API_KEY') {
-                $this->results['message'] .= '<p class="alert alert-warning">' . JText::_('MOD_SPWEATHER_ERROR_'. $message) .'</p>';
+                $this->results['message'] .= '<p class="alert alert-warning">' . Text::_('MOD_SPWEATHER_ERROR_'. $message) .'</p>';
             } elseif($custom_msg) {
                 $this->results['message'] .= '<p class="alert alert-warning">' . $message .'</p>';
             } else {
-                $this->results['message'] .= '<p class="alert alert-warning">' . JText::_('MOD_SPWEATHER_ERROR_'. $message) . ' ' . JText::_('MOD_SPWEATHER_ERROR_LOCATION_ERROR') . ' '. $platform_error .'</p>';
+                $this->results['message'] .= '<p class="alert alert-warning">' . Text::_('MOD_SPWEATHER_ERROR_'. $message) . ' ' . Text::_('MOD_SPWEATHER_ERROR_LOCATION_ERROR') . ' '. $platform_error .'</p>';
             }   
             echo $this->results['message'];
         }

@@ -3,11 +3,11 @@
 	<name>SP Weather</name>
 	<author>JoomShaper.com</author>
 	<creationDate>Sep 2012</creationDate>
-	<copyright>Copyright (C) 2010 - 2019 JoomShaper.com. All rights reserved.</copyright>
+	<copyright>Copyright (C) 2010 - 2021 JoomShaper.com. All rights reserved.</copyright>
 	<license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
 	<authorEmail>support@joomshaper.com</authorEmail>
 	<authorUrl>www.joomshaper.com</authorUrl>
-	<version>3.0</version>
+	<version>4.0</version>
 	<description>Weather module by JoomShaper.com using 5 API platform.</description>
 
 	<languages>

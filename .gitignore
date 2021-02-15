@@ -15,6 +15,9 @@ __MACOSX
 /node_modules
 /build
 /logs
+/api
+/installation
+/media
 
 LICENSE.txt
 README.txt
@@ -39,8 +42,8 @@ web.config.txt
 /language/en-GB/*
 !/language/en-GB/en-GB.mod_sp_weather.ini
 
-/components/*
-/administrator/*
+/components
+/administrator
 robots.txt.dist
 
 /node_modules/*
