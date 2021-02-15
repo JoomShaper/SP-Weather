@@ -13,16 +13,10 @@ if ( $getdataby == 'locaion_id' && $platform == 'openweathermap' ) {
     $country = ( isset($data['current']->sys->country) && $data['current']->sys->country ) ? $data['current']->sys->country : '';
     $location   = (trim($params->get('locationTranslated')) =='') ? $data['current']->name .  ', ' . $country : $params->get('locationTranslated');
 } else {
-    if ($platform == 'apixu') {
-        $city      = ( isset($data['current']->sys->name) && $data['current']->sys->name ) ? $data['current']->sys->name : '';
-        $country    = ( isset($data['current']->sys->country) && $data['current']->sys->country ) ? $data['current']->sys->country : '';
-        $location   = (trim($params->get('locationTranslated'))=='') ? $city .  ', ' . $country : $params->get('locationTranslated');
-    } elseif ($platform == 'weatherbit') {
+    if ($platform == 'weatherbit') {
         $city      = ( isset($data['current']->city_name) && $data['current']->city_name ) ? $data['current']->city_name : '';
         $country    = ( isset($data['current']->country_code) && $data['current']->country_code ) ? $data['current']->country_code : '';
         $location   = (trim($params->get('locationTranslated'))=='') ? $city .  ', ' . $country : $params->get('locationTranslated');
-    } elseif ($platform == 'darksky') {
-        $location   = (trim($params->get('locationTranslated'))=='') ? str_replace('_', ' ', $location) : $params->get('locationTranslated');
     } elseif ($platform == 'yahoo') {
         $city      = ( isset($data['current']->sys->city) && $data['current']->sys->city ) ? $data['current']->sys->city : '';
         $country    = ( isset($data['current']->sys->country) && $data['current']->sys->country ) ? $data['current']->sys->country : '';
@@ -41,11 +35,9 @@ $data = $data['query']['results']['channel'];
         <div class="weather_sp1_c">
             <div class="weather_sp1_cleft">
                 <?php 
-                    if ($platform == 'apixu') {
-                        $weather_icon = $data['current']->current->condition->icon;
-                    } else {
-                        $weather_icon = $helper->icon( $data['item']['condition']['code'] );
-                    }
+                    
+                    $weather_icon = $helper->icon( $data['item']['condition']['code'] );
+                    
                 ?>
                 <img class="spw_icon_big" src="<?php echo $weather_icon; ?>" title="<?php echo $helper->txt2lng($data['item']['condition']['text']); ?>" alt="<?php echo $helper->txt2lng($data['item']['condition']['text']); ?>" />
 
@@ -80,12 +72,10 @@ $data = $data['query']['results']['channel'];
 
                 <?php if($params->get('wind')==1) { ?>
                     <div class="spw_row"><?php echo JText::_('SP_WEATHER_WIND');  ?>: <?php 
-                        if ($platform == 'apixu') {
-
-                        } else {
-                            $compass = array('N', 'NNE', 'NE', 'ENE', 'E', 'ESE', 'SE', 'SSE', 'S', 'SSW', 'SW', 'WSW', 'W', 'WNW', 'NW', 'NNW', 'N');
-                            $data['wind']['direction'] =  (isset($data['wind']['direction']) && $data['wind']['direction']) ? $compass[round($data['wind']['direction'] / 22.5)] . JText::_('SP_WEATHER_AT') : '';
-                        }
+                        
+                        $compass = array('N', 'NNE', 'NE', 'ENE', 'E', 'ESE', 'SE', 'SSE', 'S', 'SSW', 'SW', 'WSW', 'W', 'WNW', 'NW', 'NNW', 'N');
+                        $data['wind']['direction'] =  (isset($data['wind']['direction']) && $data['wind']['direction']) ? $compass[round($data['wind']['direction'] / 22.5)] . JText::_('SP_WEATHER_AT') : '';
+                       
 
                         echo JText::_($data['wind']['direction']) . $helper->Numeric2Lang($data['wind']['speed']) . ' ' . JText::_(strtoupper($data['units']['speed'])); ?>
                     </div>
@@ -105,23 +95,7 @@ $data = $data['query']['results']['channel'];
 
                 //unset($forecast[0]);
                 foreach($forecast as $i=>$value ) {
-                    if ($platform == 'apixu') {
-                        $min_temp       = (isset($value->day->mintemp_c) && $value->day->mintemp_c) ? $value->day->mintemp_c : $value->day->avgtemp_c;
-                        $max_temp       = (isset($value->day->maxtemp_c) && $value->day->maxtemp_c) ? $value->day->maxtemp_c : $value->day->avgtemp_c;
-                        $raw_date       = $value->date_epoch;
-                        $weather_date   = $helper->txt2lng(JHtml::date($value->date_epoch, 'D'));
-                        $weather_icon   = $value->day->condition->icon;
-                        $weather_title  = $value->day->condition->text;
-                        $weather_desc   = $value->day->condition->text;
-                        
-                        if ($params->get('tempUnit')=='f') {
-                            $min_temp_converted = $helper->convertUnit( $helper->tempConvert( $min_temp ) , 'f' );
-                            $max_temp_converted = $helper->convertUnit( $helper->tempConvert($max_temp) , 'f' );
-                        } else {
-                            $min_temp_converted = $helper->convertUnit( $min_temp , 'c' );
-                            $max_temp_converted = $helper->convertUnit( $max_temp, 'c' );
-                        }
-                    } elseif ($platform == 'weatherbit') {
+                    if ($platform == 'weatherbit') {
                         $min_temp       = (isset($value->min_temp) && $value->min_temp) ? $value->min_temp : $value->temp;
                         $max_temp       = (isset($value->max_temp) && $value->max_temp) ? $value->max_temp : $value->temp;
                         $raw_date       = $value->datetime;
@@ -136,22 +110,6 @@ $data = $data['query']['results']['channel'];
                         } else {
                             $min_temp_converted = $helper->convertUnit( $min_temp , 'c' );
                             $max_temp_converted = $helper->convertUnit( $max_temp, 'c' );
-                        }
-                    } elseif ($platform == 'darksky') {
-                        $min_temp       = (isset($value->temperatureMin) && $value->temperatureMin) ? $value->temperatureMin : $value->temperatureLow;
-                        $max_temp       = (isset($value->temperatureMax) && $value->temperatureMax) ? $value->temperatureMax : $value->temperatureHigh;
-                        $raw_date       = $value->time;
-                        $weather_date   = $helper->txt2lng(JHtml::date($value->time, 'D'));
-                        $weather_icon   = $helper->icon( $value->icon );
-                        $weather_title  = (isset($value->precipType) && $value->precipType) ? $value->precipType : $value->summary;
-                        $weather_desc   = $value->summary;
-
-                        if ($params->get('tempUnit')=='f') {
-                            $min_temp_converted = $helper->convertUnit( $min_temp , 'f' );
-                            $max_temp_converted = $helper->convertUnit( $max_temp, 'f' );
-                        } else {
-                            $min_temp_converted = $helper->convertUnit( round($helper->tempConvert( $min_temp, 'c' ), 2) , 'c' );
-                            $max_temp_converted = $helper->convertUnit( round($helper->tempConvert( $max_temp, 'c' ), 2) , 'c' );
                         }
                     } elseif ($platform == 'yahoo') {
                         $min_temp       = (isset($value->low) && $value->low) ? $value->low : '';
@@ -191,9 +149,6 @@ $data = $data['query']['results']['channel'];
                     if(JHtml::date($date, 'Ymd') >= JHtml::date($raw_date, 'Ymd')) {
                         continue;
                     }
-                    // echo '<pre>';
-                    // print_r(JHtml::date($value->date, 'Ymd'));
-                    // echo '</pre>';die();
 
                     if($fcast<$j) break;
                     if ($params->get('tmpl_layout')=='list') { ?>
