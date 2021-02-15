@@ -30,7 +30,7 @@ if( $platform == 'apixu' ){
 }
 
 if( $api_key == '' && $platform == 'darksky' ){
-    Factory::getApplication()->enqueueMessage(Text::_('MOD_SPWEATHER_APIKEY_'. strtoupper($platform) .'_DESC'), 'error');
+    Factory::getApplication()->enqueueMessage(Text::_('MOD_SPWEATHER_APIKEY_'. strtoupper($platform) .'_DESC'), 'warning');
     return false;
 }
 
@@ -61,6 +61,17 @@ if($data['status']) {
         $data['query']['results']['channel']['units']['speed'] = Text::_('SP_WEATHER_WIND_SPEED_UNIT_MS');
         $data['query']['results']['channel']['wind']['speed'] = round($data['current']->wind_spd, 2);
         $data['query']['results']['channel']['wind']['direction'] = (isset($data['current']->wind_dir) && $data['current']->wind_dir) ? $data['current']->wind_dir : '';
+    } elseif ($platform == 'darksky') {
+        $location              = count((array)explode('/', $data['current']->timezone)) ? str_replace('/', ', ', $data['current']->timezone): $data['current']->timezone;
+        $data['current']       = $data['current']->currently;
+
+        // //backward compatibility
+        $data['query']['results']['channel']['item']['condition']['text'] = $data['current']->summary;
+        $data['query']['results']['channel']['item']['condition']['code'] = $data['current']->icon;
+        $data['query']['results']['channel']['atmosphere']['humidity'] = $data['current']->humidity;
+        $data['query']['results']['channel']['units']['speed'] = JText::_('SP_WEATHER_WIND_SPEED_UNIT_MS');
+        $data['query']['results']['channel']['wind']['speed'] = round($data['current']->windSpeed, 2);
+        $data['query']['results']['channel']['wind']['direction'] = (isset($data['current']->windBearing) && $data['current']->windBearing) ? $data['current']->windBearing : '';
     } elseif ($platform == 'yahoo') {   
         $location              = $data['current']->location;
         $data['current']       = $data['current']->current;
@@ -86,6 +97,8 @@ if($data['status']) {
     if ($params->get('tempUnit')=='f') {
         if ($platform == 'weatherbit') {
             $data['query']['results']['channel']['item']['condition']['temp'] = $helper->tempConvert($data['current']->temp, 'f');
+        } elseif ($platform == 'darksky') {
+            $data['query']['results']['channel']['item']['condition']['temp']  = $data['current']->main->temp;
         } elseif ($platform == 'yahoo') {
             $data['query']['results']['channel']['item']['condition']['temp']  = $data['current']->condition->temperature;
         } else {
@@ -94,6 +107,8 @@ if($data['status']) {
     } else {
         if ($platform == 'weatherbit') {
             $data['query']['results']['channel']['item']['condition']['temp'] = $data['current']->temp;
+        } elseif ($platform == 'darksky') {
+            $data['query']['results']['channel']['item']['condition']['temp'] = round($helper->tempConvert($data['current']->temperature, 'c'), 2);
         } elseif ($platform == 'yahoo') {
             $data['query']['results']['channel']['item']['condition']['temp'] = round($helper->tempConvert($data['current']->condition->temperature, 'c'), 2);
         } else {
@@ -109,6 +124,10 @@ if($data['status']) {
             $data['forecast']->sys->country_code = $data['forecast']->country_code;
             $data['forecast']->sys->country_code = $data['forecast']->country_code;
             $data['forecast'] = (array)$data['forecast']->data;
+        } elseif ($platform == 'darksky') {
+            $data['forecast']->sys = new stdClass();
+            $data['forecast']->sys->city_name = str_replace('/', ', ', $data['forecast']->timezone);
+            $data['forecast'] = (array)$data['forecast']->daily->data;
         } elseif ($platform == 'yahoo') {
             $data['forecast'] = $data['forecast']->forecasts;
         } else {
@@ -122,6 +141,11 @@ if($data['status']) {
 if ( $platform ) {
     if ($platform == 'weatherbit') {
          if ( (!empty($data['current'] && !count((array)$data['current'])) ) || $data['status'] !== true) {
+            echo '<p class="alert alert-warning">Cannot get ' . $params->get('location') . ' location in module ' . $moduleName . '. Please also make sure that you have inserted city name.</p>';
+            return false;
+        }
+    } elseif ($platform == 'darksky') {
+        if ( (!empty($data['current'] && !count((array)$data['current'])) ) || $data['status'] !== true) {
             echo '<p class="alert alert-warning">Cannot get ' . $params->get('location') . ' location in module ' . $moduleName . '. Please also make sure that you have inserted city name.</p>';
             return false;
         }

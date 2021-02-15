@@ -17,6 +17,8 @@ if ( $getdataby == 'locaion_id' && $platform == 'openweathermap' ) {
         $city       = ( isset($data['current']->city_name) && $data['current']->city_name ) ? $data['current']->city_name : '';
         $country    = ( isset($data['current']->country_code) && $data['current']->country_code ) ? $data['current']->country_code : '';
         $location   = ( trim($params->get('locationTranslated'))=='' ) ? $city .  ', ' . $country : $params->get('locationTranslated');
+    } elseif ($platform == 'darksky') {
+        $location   = ( trim($params->get('locationTranslated'))=='' ) ? str_replace('_', ' ', $location) : $params->get('locationTranslated');
     } elseif ($platform == 'yahoo') {
         $city       = ( isset($data['current']->sys->city) && $data['current']->sys->city ) ? $data['current']->sys->city : '';
         $country    = ( isset($data['current']->sys->country) && $data['current']->sys->country ) ? $data['current']->sys->country : '';
@@ -118,6 +120,22 @@ $weather_code = $data['item']['condition']['code'];
                 } else {
                     $min_temp_converted = $helper->convertUnit( $min_temp , 'c' );
                     $max_temp_converted = $helper->convertUnit( $max_temp, 'c' );
+                }
+            } elseif ($platform == 'darksky') {
+                $min_temp       = (isset($value->temperatureMin) && $value->temperatureMin) ? $value->temperatureMin : $value->temperatureLow;
+                $max_temp       = (isset($value->temperatureMax) && $value->temperatureMax) ? $value->temperatureMax : $value->temperatureHigh;
+                $raw_date       = $value->time;
+                $weather_date   = $helper->txt2lng(JHtml::date($value->time, 'D'));
+                $weather_icon   = $helper->icon( $value->icon );
+                $weather_title  = (isset($value->precipType) && $value->precipType) ? $value->precipType : $value->summary;
+                $weather_desc   = $value->summary;
+
+                if ($params->get('tempUnit')=='f') {
+                    $min_temp_converted = $helper->convertUnit( $min_temp , 'f' );
+                    $max_temp_converted = $helper->convertUnit( $max_temp, 'f' );
+                } else {
+                    $min_temp_converted = $helper->convertUnit( round($helper->tempConvert( $min_temp, 'c' ), 2) , 'c' );
+                    $max_temp_converted = $helper->convertUnit( round($helper->tempConvert( $max_temp, 'c' ), 2) , 'c' );
                 }
             } elseif ($platform == 'yahoo') {
                 $min_temp       = (isset($value->low) && $value->low) ? $value->low : '';

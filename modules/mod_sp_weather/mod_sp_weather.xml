@@ -28,11 +28,13 @@
 				<field name="platform" type="list" default="openweathermap" label="MOD_SPWEATHER_API_PLATFORM" description="MOD_SPWEATHER_API_PLATFORM_DESC">
 					<option value="openweathermap">MOD_SPWEATHER_API_PLATFORM_OPENMAPWEATHER</option>	
 					<option value="weatherbit">MOD_SPWEATHER_API_PLATFORM_WEATHERBIT</option>	
+					<option value="darksky">MOD_SPWEATHER_API_PLATFORM_DARKSKY</option>	
 					<option value="yahoo">MOD_SPWEATHER_API_PLATFORM_YAHOO</option>	
 				</field>
 
 				<field name="api_key_note_omp" type="note" label="MOD_SPWEATHER_APIKEY_OPENWEATHERMAP_DESC" showon="platform:openweathermap"/>
 				<field name="api_key_note_wb" type="note" label="MOD_SPWEATHER_APIKEY_WEATHERBIT_DESC" showon="platform:weatherbit"/>
+				<field name="api_key_note_ds" type="note" label="MOD_SPWEATHER_APIKEY_DARKSKY_DESC" showon="platform:darksky"/>
 				<field name="api_key" type="text" label="MOD_SPWEATHER_APIKEY" description="MOD_SPWEATHER_APIKEY_DESC" showon="platform!:yahoo"/>
 
 				<!-- yahoo credential -->
@@ -49,14 +51,14 @@
 				</field>
 
 				<!-- get data by location -->
-				<field name="location" type="text" default="London" label="LOCATION" description="LOCATION_DESC" showon="getdataby:locaion_name" />
+				<field name="location" type="text" default="London" label="LOCATION" description="LOCATION_DESC" showon="getdataby:locaion_name[AND]platform!:darksky" />
 				<!-- get data by location id -->
 				<field name="locationid_note" type="note" label="MOD_SPWEATHER_LOCATION_ID_OPENMAPWEATHER_NOTE" showon="getdataby:locaion_id"/>
 				<field name="locationid" type="text" default="" label="MOD_SPWEATHER_LOCATION_ID" description="MOD_SPWEATHER_LOCATION_ID_DESC" showon="getdataby:locaion_id" />
 
 				<!-- get data by location laglon -->
-				<field name="location_latlon_note" type="note" label="MOD_SPWEATHER_LATLON_WEATHERBIT_NOTE" showon="platform:weatherbit[OR]getdataby:latlon"/>
-				<field name="location_latlon" type="text" default="48.139130, 11.580220" label="MOD_SPWEATHER_LATLON" description="MOD_SPWEATHER_LATLON_DESC" showon="platform:weatherbit[OR]getdataby:latlon" />
+				<field name="location_latlon_note" type="note" label="MOD_SPWEATHER_LATLON_WEATHERBIT_NOTE" showon="platform:darksky,platform:weatherbit[OR]getdataby:latlon"/>
+				<field name="location_latlon" type="text" default="48.139130, 11.580220" label="MOD_SPWEATHER_LATLON" description="MOD_SPWEATHER_LATLON_DESC" showon="platform:darksky,platform:weatherbit[OR]getdataby:latlon" />
 
 				<!-- get data by location ip -->
 				<field name="location_ip_note" type="note" label="MOD_SPWEATHER_IP_WEATHERBIT_NOTE" showon="getdataby:ip[AND]platform:weatherbit"/>

@@ -75,12 +75,7 @@ class modSPWeatherHelper {
 
         // load current
         if($data_decode = json_decode($this->results['current'])) {
-            if($this->platform == 'apixu') {
-                if (isset($data_decode->current) && count((array)$data_decode->current)) {
-                    $this->results['status'] = true;
-                    $this->results['current'] = $data_decode;
-                }
-            } elseif ($this->platform == 'weatherbit') {
+            if ($this->platform == 'weatherbit') {
                 if (isset($data_decode->data) && count((array)$data_decode->data)) {
                     $this->results['status'] = true;
                     $this->results['current'] = $data_decode;
@@ -109,14 +104,7 @@ class modSPWeatherHelper {
         if($this->forecast_limit != 'disabled') { // if forecast is enable
             $this->results['forecast']  = $this->_getWeatherData('forecast');
             if($forecast_decode = json_decode($this->results['forecast']))  {
-                if($this->platform == 'apixu') {
-                    if( count((array)$forecast_decode->forecast->forecastday) && $forecast_decode->forecast->forecastday ) {
-                        $this->results['forecast_status'] = true;
-                        $this->results['forecast'] = (object) $forecast_decode;
-                    } else {
-                        $this->throwError('CANNOT_FIND_FORECAST_DATA');
-                    }
-                } elseif ($this->platform == 'weatherbit') {
+                if ($this->platform == 'weatherbit') {
                     if( count((array)$forecast_decode->data) && $forecast_decode->data ) {
                         $this->results['forecast_status'] = true;
                         $this->results['forecast'] = (object) $forecast_decode;
@@ -165,6 +153,8 @@ class modSPWeatherHelper {
                 } else {
                     $this->api = 'https://api.weatherbit.io/v2.0/forecast/daily?city='. $this->location .'&units=m&days='. $this->forecast_limit .'&key=' . $this->api_key;
                 }
+            } elseif ($this->platform == 'darksky') {
+                $this->api  = 'https://api.darksky.net/forecast/' . $this->api_key .'/'. $this->location_latlon .'?exclude=currently,flags,hourly,minutely&lang=bn';
             } elseif ($this->platform == 'yahoo') {
                 $this->api  = 'https://weather-ydn-yql.media.yahoo.com/forecastrss';      
             } else {
@@ -184,6 +174,8 @@ class modSPWeatherHelper {
                 } else {
                     $this->api  = 'https://api.weatherbit.io/v2.0/current?city='. $this->location .'&key=' . $this->api_key;
                 }
+            } elseif ($this->platform == 'darksky') {
+                $this->api  = 'https://api.darksky.net/forecast/' . $this->api_key .'/'. $this->location_latlon .'?exclude=daily,flags,hourly,minutely';
             } elseif ($this->platform == 'yahoo') {
                 $this->api  = 'https://weather-ydn-yql.media.yahoo.com/forecastrss';
             } else {
