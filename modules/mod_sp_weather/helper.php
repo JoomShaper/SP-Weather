@@ -9,7 +9,6 @@
 //no direct accees
 defined ('_JEXEC') or die ('Restricted access');
 
-use Exception;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Filesystem\Folder;
 

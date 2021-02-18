@@ -9,9 +9,9 @@
 //no direct accees
 defined ('_JEXEC') or die ('Restricted access');
 
+use Joomla\CMS\Date\Date;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\HTML\HTMLHelper;
-use Joomla\CMS\HTML\Helpers\Date;
 
 if ( $getdataby == 'locaion_id' && $platform == 'openweathermap' ) {
     $country = ( isset($data['current']->sys->country) && $data['current']->sys->country ) ? $data['current']->sys->country : '';
