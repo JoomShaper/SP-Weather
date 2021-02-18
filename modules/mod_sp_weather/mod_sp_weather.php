@@ -69,7 +69,7 @@ if($data['status']) {
         $data['query']['results']['channel']['item']['condition']['text'] = $data['current']->summary;
         $data['query']['results']['channel']['item']['condition']['code'] = $data['current']->icon;
         $data['query']['results']['channel']['atmosphere']['humidity'] = $data['current']->humidity;
-        $data['query']['results']['channel']['units']['speed'] = JText::_('SP_WEATHER_WIND_SPEED_UNIT_MS');
+        $data['query']['results']['channel']['units']['speed'] = Text::_('SP_WEATHER_WIND_SPEED_UNIT_MS');
         $data['query']['results']['channel']['wind']['speed'] = round($data['current']->windSpeed, 2);
         $data['query']['results']['channel']['wind']['direction'] = (isset($data['current']->windBearing) && $data['current']->windBearing) ? $data['current']->windBearing : '';
     } elseif ($platform == 'yahoo') {   
