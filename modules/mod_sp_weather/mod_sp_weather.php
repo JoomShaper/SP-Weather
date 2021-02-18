@@ -141,22 +141,22 @@ if($data['status']) {
 if ( $platform ) {
     if ($platform == 'weatherbit') {
          if ( (!empty($data['current'] && !count((array)$data['current'])) ) || $data['status'] !== true) {
-            echo '<p class="alert alert-warning">Cannot get ' . $params->get('location') . ' location in module ' . $moduleName . '. Please also make sure that you have inserted city name.</p>';
+            echo Text::sprintf('MOD_SPWEATHER_ERROR_CANNOT_GET_LOCATION_ERROR', $params->get('location'), $moduleName);
             return false;
         }
     } elseif ($platform == 'darksky') {
         if ( (!empty($data['current'] && !count((array)$data['current'])) ) || $data['status'] !== true) {
-            echo '<p class="alert alert-warning">Cannot get ' . $params->get('location') . ' location in module ' . $moduleName . '. Please also make sure that you have inserted city name.</p>';
+            echo Text::sprintf('MOD_SPWEATHER_ERROR_CANNOT_GET_LOCATION_ERROR', $params->get('location'), $moduleName);
             return false;
         }
     } elseif ($platform == 'yahoo') {
         if ( (!empty($data['current'] && !count((array)$data['current'])) ) || $data['status'] !== true) {
-            echo '<p class="alert alert-warning">Cannot get ' . $params->get('location') . ' location in module ' . $moduleName . '. Please also make sure that you have inserted city name.</p>';
+            echo Text::sprintf('MOD_SPWEATHER_ERROR_CANNOT_GET_LOCATION_ERROR', $params->get('location'), $moduleName);
             return false;
         }
     } else {
         if ( (!empty($data['current']->main && !count((array)$data['current']->main)) ) || $data['status'] !== true) {
-            echo '<p class="alert alert-warning">Cannot get ' . $params->get('location') . ' location in module ' . $moduleName . '. Please also make sure that you have inserted city name.</p>';
+            echo Text::sprintf('MOD_SPWEATHER_ERROR_CANNOT_GET_LOCATION_ERROR', $params->get('location'), $moduleName);
             return false;
         }
     }

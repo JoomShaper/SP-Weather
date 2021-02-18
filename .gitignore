@@ -18,6 +18,7 @@ __MACOSX
 /api
 /installation
 /media
+/dist
 
 LICENSE.txt
 README.txt
