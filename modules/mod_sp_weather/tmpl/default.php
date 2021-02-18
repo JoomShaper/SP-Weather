@@ -9,6 +9,10 @@
 //no direct accees
 defined ('_JEXEC') or die ('Restricted access');
 
+use Joomla\CMS\Language\Text;
+use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\HTML\Helpers\Date;
+
 if ( $getdataby == 'locaion_id' && $platform == 'openweathermap' ) {
     $country = ( isset($data['current']->sys->country) && $data['current']->sys->country ) ? $data['current']->sys->country : '';
     $location   = (trim($params->get('locationTranslated')) =='') ? $data['current']->name .  ', ' . $country : $params->get('locationTranslated');
@@ -46,9 +50,9 @@ $data = $data['query']['results']['channel'];
                 <br style="clear:both" />
                 <p class="spw_current_temp">
                     <?php if ($params->get('tempUnit')=='f') { ?>
-                        <?php echo $data['item']['condition']['temp'] . JText::_('SP_WEATHER_F'); ?>	
+                        <?php echo $data['item']['condition']['temp'] . Text::_('SP_WEATHER_F'); ?>	
                     <?php } else { ?>
-                        <?php echo $data['item']['condition']['temp'] . JText::_('SP_WEATHER_C'); ?>
+                        <?php echo $data['item']['condition']['temp'] . Text::_('SP_WEATHER_C'); ?>
                     <?php } ?>
                 </p>
             </div>
@@ -68,18 +72,18 @@ $data = $data['query']['results']['channel'];
 
                 <?php if($params->get('humidity')==1) { ?>
                     <div class="spw_row">
-                        <?php echo JText::_('SP_WEATHER_HUMIDITY');  ?>: <?php echo $helper->Numeric2Lang($data['atmosphere']['humidity']); ?>%
+                        <?php echo Text::_('SP_WEATHER_HUMIDITY');  ?>: <?php echo $helper->Numeric2Lang($data['atmosphere']['humidity']); ?>%
                     </div>
                 <?php } ?>
 
                 <?php if($params->get('wind')==1) { ?>
-                    <div class="spw_row"><?php echo JText::_('SP_WEATHER_WIND');  ?>: <?php 
+                    <div class="spw_row"><?php echo Text::_('SP_WEATHER_WIND');  ?>: <?php 
                         
                         $compass = array('N', 'NNE', 'NE', 'ENE', 'E', 'ESE', 'SE', 'SSE', 'S', 'SSW', 'SW', 'WSW', 'W', 'WNW', 'NW', 'NNW', 'N');
-                        $data['wind']['direction'] =  (isset($data['wind']['direction']) && $data['wind']['direction']) ? $compass[round($data['wind']['direction'] / 22.5)] . JText::_('SP_WEATHER_AT') : '';
+                        $data['wind']['direction'] =  (isset($data['wind']['direction']) && $data['wind']['direction']) ? $compass[round($data['wind']['direction'] / 22.5)] . Text::_('SP_WEATHER_AT') : '';
                        
 
-                        echo JText::_($data['wind']['direction']) . $helper->Numeric2Lang($data['wind']['speed']) . ' ' . JText::_(strtoupper($data['units']['speed'])); ?>
+                        echo Text::_($data['wind']['direction']) . $helper->Numeric2Lang($data['wind']['speed']) . ' ' . Text::_(strtoupper($data['units']['speed'])); ?>
                     </div>
                 <?php } ?>
             </div> <!-- /.weather_sp1_cright -->
@@ -93,7 +97,7 @@ $data = $data['query']['results']['channel'];
                 <?php
                 $fcast = (int) $params->get('forecast');
                 $j = 1;
-                $date = new JDate();
+                $date = new Date();
 
                 //unset($forecast[0]);
                 foreach($forecast as $i=>$value ) {
@@ -101,7 +105,7 @@ $data = $data['query']['results']['channel'];
                         $min_temp       = (isset($value->min_temp) && $value->min_temp) ? $value->min_temp : $value->temp;
                         $max_temp       = (isset($value->max_temp) && $value->max_temp) ? $value->max_temp : $value->temp;
                         $raw_date       = $value->datetime;
-                        $weather_date   = $helper->txt2lng(JHtml::date($value->datetime, 'D'));
+                        $weather_date   = $helper->txt2lng(HTMLHelper::date($value->datetime, 'D'));
                         $weather_icon   = $helper->icon( $value->weather->icon );
                         $weather_title  = $value->weather->description;
                         $weather_desc   = $value->weather->description;
@@ -117,7 +121,7 @@ $data = $data['query']['results']['channel'];
                         $min_temp       = (isset($value->temperatureMin) && $value->temperatureMin) ? $value->temperatureMin : $value->temperatureLow;
                         $max_temp       = (isset($value->temperatureMax) && $value->temperatureMax) ? $value->temperatureMax : $value->temperatureHigh;
                         $raw_date       = $value->time;
-                        $weather_date   = $helper->txt2lng(JHtml::date($value->time, 'D'));
+                        $weather_date   = $helper->txt2lng(HTMLHelper::date($value->time, 'D'));
                         $weather_icon   = $helper->icon( $value->icon );
                         $weather_title  = (isset($value->precipType) && $value->precipType) ? $value->precipType : $value->summary;
                         $weather_desc   = $value->summary;
@@ -133,7 +137,7 @@ $data = $data['query']['results']['channel'];
                         $min_temp       = (isset($value->low) && $value->low) ? $value->low : '';
                         $max_temp       = (isset($value->high) && $value->high) ? $value->high : '';
                         $raw_date       = $value->date;
-                        $weather_date   = $helper->txt2lng(JHtml::date($value->date, 'D'));
+                        $weather_date   = $helper->txt2lng(HTMLHelper::date($value->date, 'D'));
                         $weather_icon   = $helper->icon( $value->code );
                         $weather_title  = (isset($value->text) && $value->text) ? $value->text : '';
                         $weather_desc   = $value->text;
@@ -150,7 +154,7 @@ $data = $data['query']['results']['channel'];
                         $min_temp       = (isset($value->temp->min) && $value->temp->min) ? $value->temp->min : $value->main->temp_min;
                         $max_temp       = (isset($value->temp->max) && $value->temp->max) ? $value->temp->max : $value->main->temp_max;
                         $raw_date       = $value->dt;
-                        $weather_date   = $helper->txt2lng(JHtml::date($value->dt, 'D'));
+                        $weather_date   = $helper->txt2lng(HTMLHelper::date($value->dt, 'D'));
                         $weather_icon   = $helper->icon( $value->weather[0]->icon );
                         $weather_title  = $value->weather[0]->main;
                         $weather_desc   = $value->weather[0]->description;
@@ -164,7 +168,7 @@ $data = $data['query']['results']['channel'];
                         }
                     }
 
-                    if(JHtml::date($date, 'Ymd') >= JHtml::date($raw_date, 'Ymd')) {
+                    if(HTMLHelper::date($date, 'Ymd') >= HTMLHelper::date($raw_date, 'Ymd')) {
                         continue;
                     }
 

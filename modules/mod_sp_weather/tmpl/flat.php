@@ -4,10 +4,13 @@
  * @author JoomShaper http://www.joomshaper.com
  * @copyright Copyright (c) 2010 - 2021 JoomShaper
  * @license http://www.gnu.org/licenses/gpl-2.0.html GNU/GPLv2 or later
-*/
+ */
 
 //no direct accees
 defined ('_JEXEC') or die ('Restricted access');
+
+use Joomla\CMS\Language\Text;
+use Joomla\CMS\HTML\HTMLHelper;
 
 if ( $getdataby == 'locaion_id' && $platform == 'openweathermap' ) {
     $country        = ( isset($data['current']->sys->country) && $data['current']->sys->country ) ? $data['current']->sys->country : '';
@@ -53,9 +56,9 @@ $weather_code = $data['item']['condition']['code'];
                 </div>
                 <div class="sp-weather-current-temp">
                     <?php if ($params->get('tempUnit')=='f') { ?>
-                        <?php echo  $data['item']['condition']['temp']. JText::_('SP_WEATHER_F'); ?>    
+                        <?php echo  $data['item']['condition']['temp']. Text::_('SP_WEATHER_F'); ?>    
                     <?php } else { ?>
-                        <?php echo $data['item']['condition']['temp']. JText::_('SP_WEATHER_C'); ?>
+                        <?php echo $data['item']['condition']['temp']. Text::_('SP_WEATHER_C'); ?>
                     <?php } ?>
                 </div>
             </div>
@@ -74,7 +77,7 @@ $weather_code = $data['item']['condition']['code'];
                     <?php } ?>
                     <?php if($params->get('humidity')) { ?>
                     <span class="sp-humidity">
-                        <?php echo JText::_('SP_WEATHER_HUMIDITY');  ?>: <?php echo $helper->Numeric2Lang($data['atmosphere']['humidity']); ?>%
+                        <?php echo Text::_('SP_WEATHER_HUMIDITY');  ?>: <?php echo $helper->Numeric2Lang($data['atmosphere']['humidity']); ?>%
                     </span>
                     <?php } ?>
                 </div>
@@ -82,15 +85,15 @@ $weather_code = $data['item']['condition']['code'];
 
                 <?php if($params->get('wind')==1) { ?>
                     <div class="spw_row">
-                        <?php echo JText::_('SP_WEATHER_WIND');  ?>: <?php
+                        <?php echo Text::_('SP_WEATHER_WIND');  ?>: <?php
 
                         $compass = array('N', 'NNE', 'NE', 'ENE', 'E', 'ESE', 'SE', 'SSE', 'S', 'SSW', 'SW', 'WSW', 'W', 'WNW', 'NW', 'NNW', 'N');
                         
                         
-                        $data['wind']['direction'] = (isset($data['wind']['direction']) && $data['wind']['direction']) ? $compass[round($data['wind']['direction'] / 22.5)] . JText::_('SP_WEATHER_AT') : '';
+                        $data['wind']['direction'] = (isset($data['wind']['direction']) && $data['wind']['direction']) ? $compass[round($data['wind']['direction'] / 22.5)] . Text::_('SP_WEATHER_AT') : '';
                         
 
-                        echo JText::_($data['wind']['direction']) . $helper->Numeric2Lang($data['wind']['speed']) . ' ' . JText::_(strtoupper($data['units']['speed'])); ?>
+                        echo Text::_($data['wind']['direction']) . $helper->Numeric2Lang($data['wind']['speed']) . ' ' . Text::_(strtoupper($data['units']['speed'])); ?>
                     </div>
                 <?php } ?>
 
@@ -109,7 +112,7 @@ $weather_code = $data['item']['condition']['code'];
                 $min_temp       = (isset($value->min_temp) && $value->min_temp) ? $value->min_temp : $value->temp;
                 $max_temp       = (isset($value->max_temp) && $value->max_temp) ? $value->max_temp : $value->temp;
                 $raw_date       = $value->datetime;
-                $weather_date   = $helper->txt2lng(JHtml::date($value->datetime, 'D'));
+                $weather_date   = $helper->txt2lng(HTMLHelper::date($value->datetime, 'D'));
                 $weather_icon   = $helper->icon( $value->weather->icon );
                 $weather_title  = $value->weather->description;
                 $weather_desc   = $value->weather->description;
@@ -125,7 +128,7 @@ $weather_code = $data['item']['condition']['code'];
                 $min_temp       = (isset($value->temperatureMin) && $value->temperatureMin) ? $value->temperatureMin : $value->temperatureLow;
                 $max_temp       = (isset($value->temperatureMax) && $value->temperatureMax) ? $value->temperatureMax : $value->temperatureHigh;
                 $raw_date       = $value->time;
-                $weather_date   = $helper->txt2lng(JHtml::date($value->time, 'D'));
+                $weather_date   = $helper->txt2lng(HTMLHelper::date($value->time, 'D'));
                 $weather_icon   = $helper->icon( $value->icon );
                 $weather_title  = (isset($value->precipType) && $value->precipType) ? $value->precipType : $value->summary;
                 $weather_desc   = $value->summary;
@@ -141,7 +144,7 @@ $weather_code = $data['item']['condition']['code'];
                 $min_temp       = (isset($value->low) && $value->low) ? $value->low : '';
                 $max_temp       = (isset($value->high) && $value->high) ? $value->high : '';
                 $raw_date       = $value->date;
-                $weather_date   = $helper->txt2lng(JHtml::date($value->date, 'D'));
+                $weather_date   = $helper->txt2lng(HTMLHelper::date($value->date, 'D'));
                 $weather_code   = $value->code;
                 $weather_title  = (isset($value->text) && $value->text) ? $value->text : '';
                 $weather_desc   = $value->text;
@@ -158,7 +161,7 @@ $weather_code = $data['item']['condition']['code'];
                 $min_temp       = (isset($value->temp->min) && $value->temp->min) ? $value->temp->min : $value->main->temp_min;
                 $max_temp       = (isset($value->temp->max) && $value->temp->max) ? $value->temp->max : $value->main->temp_max;
                 $raw_date       = $value->dt;
-                $weather_date   = $helper->txt2lng(JHtml::date($value->dt, 'D'));
+                $weather_date   = $helper->txt2lng(HTMLHelper::date($value->dt, 'D'));
                 $weather_code   = $value->weather[0]->icon;
                 $weather_title  = $value->weather[0]->main;
                 $weather_desc   = $value->weather[0]->description;
@@ -173,7 +176,7 @@ $weather_code = $data['item']['condition']['code'];
             }
 
             // unset today's and less than today's forecast
-            if(JHtml::date($date, 'Ymd') >= JHtml::date($raw_date, 'Ymd')) {
+            if(HTMLHelper::date($date, 'Ymd') >= HTMLHelper::date($raw_date, 'Ymd')) {
                 continue;
             }
             
