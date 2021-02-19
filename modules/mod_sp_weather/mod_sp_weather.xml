@@ -104,7 +104,7 @@
 			</fieldset>	
 			
 			<fieldset name="advanced">
-				<field name="layout" type="modulelayout" label="JFIELD_ALT_LAYOUT_LABEL" description="JFIELD_ALT_MODULE_LAYOUT_DESC" />
+				<field name="layout" type="modulelayout" class="form-select" label="JFIELD_ALT_LAYOUT_LABEL" description="JFIELD_ALT_MODULE_LAYOUT_DESC" />
 				<field name="moduleclass_sfx" type="text" default="" label="MODSFX" description="MODSFX_DESC" />			
 				<field name="cache" type="hidden" default="0"/>
 				<field name="useCache" type="list" default="1" label="USECACHE" description="USECACHE_DESC">

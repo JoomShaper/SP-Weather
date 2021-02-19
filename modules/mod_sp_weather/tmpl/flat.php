@@ -102,7 +102,7 @@ $weather_code = $data['item']['condition']['code'];
     </div><!--/.sp-weather-current-->
 
     <?php if ($params->get('forecast')!='disabled') { ?>
-    <div class="sp-weather-forcasts layout-<?php echo $params->get('tmpl_layout', ''); ?>">
+    <div class="sp-weather-forcasts layout-<?php echo $params->get('tmpl_layout', ''); ?>" style="display: flex; flex-wrap: wrap; flex-direction: <?php echo ($params->get('tmpl_layout') == 'list') ? "column" :"row";?>">
         <?php
         $fcast = (int) $params->get('forecast');
         $j = 1;
@@ -205,7 +205,7 @@ $weather_code = $data['item']['condition']['code'];
                     </div>
                 </div>				
             <?php } else { ?> 
-                <div class="grid grid-<?php echo ($i%2 ? 'even' : 'odd') ?>" style="width:<?php echo round(100/$fcast) ?>%">
+                <div class="grid grid-<?php echo ($i%2 ? 'even' : 'odd') ?>" >
                     <div class="media">
                         <div class="pull-left">
                             <div class="sp-weather-icon">
@@ -217,6 +217,9 @@ $weather_code = $data['item']['condition']['code'];
                             </div>
                         </div>
                         <div class="media-body">
+                            <div class="sp-weather-day">
+                                <?php echo $weather_date; ?>
+                            </div>
                             <div class="sp-weather-temp">
                                 <?php echo $min_temp_converted . '&nbsp;' . $params->get('separator') . '&nbsp;' . $max_temp_converted; ?>
                             </div>

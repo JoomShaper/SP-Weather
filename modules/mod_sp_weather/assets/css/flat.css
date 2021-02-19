@@ -29,14 +29,14 @@
 
 .sp-weather-current .sp-weather-current-temp {
     display: block;
-    text-align: center;
 }
 
 .sp-weather-forcasts {
     margin-top: 10px;
 }
 .sp-weather .grid {
-    float: left;
+    text-align:center;
+    margin: 10px;
 }
 
 .sp-weather-forcasts .sp-weather-icon {
