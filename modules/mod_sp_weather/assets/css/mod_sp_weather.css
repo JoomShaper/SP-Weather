@@ -11,7 +11,7 @@
 p.spw_current_temp{font-size:18px;margin:-30px 0 0 15px}
 .weather_sp1_cright{float:left;}
 p.weather_sp1_city{font-size:24px;line-height:24px;font-weight:700;margin:15px 0 0;padding:0}
-.block_even,.block_odd{text-align:center}
+.block_even,.block_odd{text-align:center;margin: 10px;}
 span.weather_sp1_temp,span.weather_sp1_list_temp{font-size:10px}
 .list_even,.list_odd{width:100%;border-top:1px dashed #e0e0e0}
 span.weather_sp1_list_day,span.weather_sp1_list_temp,span.weather_sp1_list_icon{height:32px;line-height:32px;display:block;float:left;width:33%}

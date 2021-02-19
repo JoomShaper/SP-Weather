@@ -93,7 +93,7 @@ $data = $data['query']['results']['channel'];
 
         <div style="clear:both"></div>
         <?php if ($params->get('forecast')!='disabled') { ?>
-            <div class="weather_sp1_forecasts layout-<?php echo $params->get('tmpl_layout', ''); ?>">
+            <div class="weather_sp1_forecasts layout-<?php echo $params->get('tmpl_layout', ''); ?>" style="display: flex; flex-wrap: wrap; flex-direction: row;">
                 <?php
                 $fcast = (int) $params->get('forecast');
                 $j = 1;
@@ -188,7 +188,7 @@ $data = $data['query']['results']['channel'];
                             <div style="clear:both"></div>
                         </div>
                         <?php } else { ?> 
-                            <div class="block_<?php echo ($i%2 ? 'even' : 'odd') ?>" style="float:left;width:<?php echo round(100/$fcast) ?>%">
+                            <div class="block_<?php echo ($i%2 ? 'even' : 'odd') ?>" >
                                 <span class="weather_sp1_day">
                                     <?php echo $weather_date; ?>
                                 </span>
