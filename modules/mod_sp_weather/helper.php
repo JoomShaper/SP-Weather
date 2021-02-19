@@ -32,7 +32,7 @@ class modSPWeatherHelper {
     private $api;
     private $cache_time;
     private $nightIDs = array(27,29,31,33);
-    private $iconURL = 'http://openweathermap.org/img/w/%s.png';
+    private $iconURL = 'https://openweathermap.org/img/w/%s.png';
     
     /**
     * Init Class Params
@@ -67,7 +67,7 @@ class modSPWeatherHelper {
         } elseif( $this->platform ==  'darksky' ) {
             $this->iconURL = 'https://darksky.net/images/weather-icons/%s.png';
         } elseif( $this->platform ==  'yahoo' ) {
-            $this->iconURL = 'http://l.yimg.com/os/mit/media/m/weather/images/icons/l/%d%s-100567.png';
+            $this->iconURL = 'https://s.yimg.com/os/mit/media/m/weather/images/icons/l/%d%s-100567.png';
         }
 
         // get current data
@@ -166,7 +166,7 @@ class modSPWeatherHelper {
                 if ($this->getdataby == 'latlon')
                 {
                     $location_latlon = explode(',', str_replace(', ', ',', $this->location_latlon));
-                    $this->api  = 'http://api.openweathermap.org/data/2.5/onecall?lat='. $location_latlon[0] .'&lon='. $location_latlon[1] .'&exclude=current,minutely,hourly,alerts&units=metric&appid=' . $this->api_key;
+                    $this->api  = 'https://api.openweathermap.org/data/2.5/onecall?lat='. $location_latlon[0] .'&lon='. $location_latlon[1] .'&exclude=current,minutely,hourly,alerts&units=metric&appid=' . $this->api_key;
                 }
             }
         } else {
@@ -190,10 +190,10 @@ class modSPWeatherHelper {
                 elseif ($this->getdataby == 'latlon')
                 {
                     $location_latlon = explode(',', str_replace(', ', ',', $this->location_latlon));
-                    $this->api  = 'http://api.openweathermap.org/data/2.5/onecall?lat='. $location_latlon[0] .'&lon='. $location_latlon[1] .'&exclude=minutely,hourly,daily,alerts&units=metric&appid=' . $this->api_key;
+                    $this->api  = 'https://api.openweathermap.org/data/2.5/onecall?lat='. $location_latlon[0] .'&lon='. $location_latlon[1] .'&exclude=minutely,hourly,daily,alerts&units=metric&appid=' . $this->api_key;
                 }
                 else {
-                    $this->api  = 'http://api.openweathermap.org/data/2.5/weather?q='. $this->location .'&units=metric&appid=' . $this->api_key;
+                    $this->api  = 'https://api.openweathermap.org/data/2.5/weather?q='. $this->location .'&units=metric&appid=' . $this->api_key;
                 }
             }   
         }
