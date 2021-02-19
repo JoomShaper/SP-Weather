@@ -21,6 +21,7 @@ $document               = Factory::getDocument();
 $api_key                = $params->get('api_key', '');
 $platform               = $params->get('platform', 'openweathermap');
 $getdataby              = $params->get('getdataby', 'locaion_name');
+$forecast_limit         = $params->get('forecast', '7');
 $moduleclass_sfx        = htmlspecialchars($params->get('moduleclass_sfx'), ENT_COMPAT, 'UTF-8');
 
 
@@ -37,6 +38,13 @@ if( $api_key == '' && $platform == 'darksky' ){
 // if not API KEY throw error 
 if( $api_key == '' && $platform != 'yahoo' ){
     $html = '<p class="alert alert-warning">' . Text::_('MOD_SPWEATHER_APIKEY_'. strtoupper($platform) .'_DESC') .'</p>';
+    echo $html;
+    return false;
+}
+
+// if not API KEY throw error 
+if( $platform == 'openweathermap' && $getdataby != 'latlon' && $forecast_limit != 'disabled' ){
+    $html = '<p class="alert alert-warning">' . Text::_('MOD_SPWEATHER_ERROR_LOCATION_NOT_ALLOWED') .'</p>';
     echo $html;
     return false;
 }
@@ -85,13 +93,25 @@ if($data['status']) {
         $data['query']['results']['channel']['wind']['speed'] = round($data['current']->wind->speed, 2);
         $data['query']['results']['channel']['wind']['direction'] = (isset($data['current']->wind->direction) && $data['current']->wind->direction) ? $data['current']->wind->direction : '';
     } else {
-        //backward compatibility
-        $data['query']['results']['channel']['item']['condition']['text'] = $data['current']->weather[0]->description;
-        $data['query']['results']['channel']['item']['condition']['code'] = $data['current']->weather[0]->icon;
-        $data['query']['results']['channel']['atmosphere']['humidity'] = $data['current']->main->humidity;
-        $data['query']['results']['channel']['units']['speed'] = Text::_('SP_WEATHER_WIND_SPEED_UNIT_MS');
-        $data['query']['results']['channel']['wind']['speed'] = round($data['current']->wind->speed, 2);
-        $data['query']['results']['channel']['wind']['direction'] = (isset($data['current']->wind->deg) && $data['current']->wind->deg) ? $data['current']->wind->deg : '';
+        if ($getdataby != 'latlon')
+        {
+            //backward compatibility
+            $data['query']['results']['channel']['item']['condition']['text'] = $data['current']->weather[0]->description;
+            $data['query']['results']['channel']['item']['condition']['code'] = $data['current']->weather[0]->icon;
+            $data['query']['results']['channel']['atmosphere']['humidity'] = $data['current']->main->humidity;
+            $data['query']['results']['channel']['units']['speed'] = Text::_('SP_WEATHER_WIND_SPEED_UNIT_MS');
+            $data['query']['results']['channel']['wind']['speed'] = round($data['current']->wind->speed, 2);
+            $data['query']['results']['channel']['wind']['direction'] = (isset($data['current']->wind->deg) && $data['current']->wind->deg) ? $data['current']->wind->deg : '';
+        }
+        else
+        {
+            $data['query']['results']['channel']['item']['condition']['text'] = $data['current']->weather[0]->description;
+            $data['query']['results']['channel']['item']['condition']['code'] = $data['current']->weather[0]->icon;
+            $data['query']['results']['channel']['atmosphere']['humidity'] = $data['current']->humidity;
+            $data['query']['results']['channel']['units']['speed'] = Text::_('SP_WEATHER_WIND_SPEED_UNIT_MS');
+            $data['query']['results']['channel']['wind']['speed'] = round($data['current']->wind_speed, 2);
+            $data['query']['results']['channel']['wind']['direction'] = (isset($data['current']->wind_deg) && $data['current']->wind_deg) ? $data['current']->wind_deg : '';
+        }
     }
     
     if ($params->get('tempUnit')=='f') {
@@ -102,7 +122,14 @@ if($data['status']) {
         } elseif ($platform == 'yahoo') {
             $data['query']['results']['channel']['item']['condition']['temp']  = $data['current']->condition->temperature;
         } else {
-            $data['query']['results']['channel']['item']['condition']['temp']  = $helper->tempConvert($data['current']->main->temp, 'f');
+            if ($getdataby != 'latlon')
+            {
+                $data['query']['results']['channel']['item']['condition']['temp']  = $helper->tempConvert($data['current']->main->temp, 'f');
+            }
+            else
+            {
+                $data['query']['results']['channel']['item']['condition']['temp']  = $helper->tempConvert($data['current']->temp, 'f');
+            }
         }
     } else {
         if ($platform == 'weatherbit') {
@@ -112,7 +139,14 @@ if($data['status']) {
         } elseif ($platform == 'yahoo') {
             $data['query']['results']['channel']['item']['condition']['temp'] = round($helper->tempConvert($data['current']->condition->temperature, 'c'), 2);
         } else {
-            $data['query']['results']['channel']['item']['condition']['temp']  = $data['current']->main->temp;
+            if ($getdataby != 'latlon')
+            {
+                $data['query']['results']['channel']['item']['condition']['temp']  = $data['current']->main->temp;
+            }
+            else
+            {
+                $data['query']['results']['channel']['item']['condition']['temp']  = $data['current']->temp;
+            }
         }
     }
     
@@ -131,7 +165,7 @@ if($data['status']) {
         } elseif ($platform == 'yahoo') {
             $data['forecast'] = $data['forecast']->forecasts;
         } else {
-            $data['forecast'] = (array)$data['forecast']->list;
+            $data['forecast'] = (array)$data['forecast']->daily;
         }
     }
 } else {
@@ -155,7 +189,12 @@ if ( $platform ) {
             return false;
         }
     } else {
-        if ( (!empty($data['current']->main && !count((array)$data['current']->main)) ) || $data['status'] !== true) {
+        if ( (isset($data['current']->main) && !empty($data['current']->main && !count((array)$data['current']->main)) ) || $data['status'] !== true) {
+            echo Text::sprintf('MOD_SPWEATHER_ERROR_CANNOT_GET_LOCATION_ERROR', $params->get('location'), $moduleName);
+            return false;
+        }
+        else if ( (isset($data['current']) && !empty($data['current'] && !count((array)$data['current'])) ) || $data['status'] !== true)
+        {
             echo Text::sprintf('MOD_SPWEATHER_ERROR_CANNOT_GET_LOCATION_ERROR', $params->get('location'), $moduleName);
             return false;
         }

@@ -46,12 +46,12 @@
 				<field name="getdataby" type="list" label="MOD_SPWEATHER_GET_DATA_BY" default="locaion_name" description="MOD_SPWEATHER_GET_DATA_BY_DESC" showon="platform:openweathermap,weatherbit">
 					<option value="locaion_name">MOD_SPWEATHER_GET_DATA_BY_LOCATION_NAME</option>
 					<option value="locaion_id" showon="platform:openweathermap">MOD_SPWEATHER_GET_DATA_BY_LOCATION_ID</option>
-					<option value="latlon" showon="platform:weatherbit">MOD_SPWEATHER_GET_DATA_BY_LATLON</option>
+					<option value="latlon" showon="platform:weatherbit,openweathermap">MOD_SPWEATHER_GET_DATA_BY_LATLON</option>
 					<option value="ip" showon="platform:weatherbit">MOD_SPWEATHER_GET_DATA_BY_IP</option>
 				</field>
 
 				<!-- get data by location -->
-				<field name="location" type="text" default="London" label="LOCATION" description="LOCATION_DESC" showon="getdataby:locaion_name[AND]platform!:darksky" />
+				<field name="location" type="text" default="London" label="LOCATION" description="LOCATION_DESC" showon="getdataby:latlon[AND]platform:openweathermap[OR]getdataby:locaion_name[AND]platform!:darksky" />
 				<!-- get data by location id -->
 				<field name="locationid_note" type="note" label="MOD_SPWEATHER_LOCATION_ID_OPENMAPWEATHER_NOTE" showon="getdataby:locaion_id"/>
 				<field name="locationid" type="text" default="" label="MOD_SPWEATHER_LOCATION_ID" description="MOD_SPWEATHER_LOCATION_ID_DESC" showon="getdataby:locaion_id" />

@@ -95,6 +95,11 @@ class modSPWeatherHelper {
                     $this->results['status'] = true;
                     $this->results['current'] = $data_decode;
                 }
+                else
+                {
+                    $this->results['status'] = true;
+                    $this->results['current'] = $data_decode->current;
+                }
             }
         } else {
             $this->throwError('CANNOT_DECODE_CURRENT_DATA');
@@ -126,7 +131,7 @@ class modSPWeatherHelper {
                         $this->throwError('CANNOT_FIND_FORECAST_DATA');
                     }
                 } else {
-                    if( count((array)$forecast_decode->list) && $forecast_decode->list ) {
+                    if( count((array)$forecast_decode->daily) && $forecast_decode->daily ) {
                         $this->results['forecast_status'] = true;
                         $this->results['forecast'] = (object) $forecast_decode;
                     } else {
@@ -158,10 +163,10 @@ class modSPWeatherHelper {
             } elseif ($this->platform == 'yahoo') {
                 $this->api  = 'https://weather-ydn-yql.media.yahoo.com/forecastrss';      
             } else {
-                if($this->getdataby == 'locaion_id') {
-                    $this->api  = 'http://api.openweathermap.org/data/2.5/forecast?id='. $this->locationid .'&units=metric&cnt='. $this->forecast_limit .'&lang=en&appid=' . $this->api_key;
-                } else {
-                    $this->api  = 'http://api.openweathermap.org/data/2.5/forecast?q='. $this->location .'&units=metric&cnt='. $this->forecast_limit .'&lang=en&appid=' . $this->api_key;
+                if ($this->getdataby == 'latlon')
+                {
+                    $location_latlon = explode(',', str_replace(', ', ',', $this->location_latlon));
+                    $this->api  = 'http://api.openweathermap.org/data/2.5/onecall?lat='. $location_latlon[0] .'&lon='. $location_latlon[1] .'&exclude=current,minutely,hourly,alerts&units=metric&appid=' . $this->api_key;
                 }
             }
         } else {
@@ -180,9 +185,15 @@ class modSPWeatherHelper {
                 $this->api  = 'https://weather-ydn-yql.media.yahoo.com/forecastrss';
             } else {
                 if($this->getdataby == 'locaion_id') {
-                    $this->api       = 'http://api.openweathermap.org/data/2.5/weather?id='. $this->locationid .'&units=metric&&appid=' . $this->api_key;
-                } else {
-                    $this->api  = 'http://api.openweathermap.org/data/2.5/weather?q='. $this->location .'&units=metric&&appid=' . $this->api_key;
+                    $this->api       = 'http://api.openweathermap.org/data/2.5/weather?id='. $this->locationid .'&units=metric&appid=' . $this->api_key;
+                } 
+                elseif ($this->getdataby == 'latlon')
+                {
+                    $location_latlon = explode(',', str_replace(', ', ',', $this->location_latlon));
+                    $this->api  = 'http://api.openweathermap.org/data/2.5/onecall?lat='. $location_latlon[0] .'&lon='. $location_latlon[1] .'&exclude=minutely,hourly,daily,alerts&units=metric&appid=' . $this->api_key;
+                }
+                else {
+                    $this->api  = 'http://api.openweathermap.org/data/2.5/weather?q='. $this->location .'&units=metric&appid=' . $this->api_key;
                 }
             }   
         }
