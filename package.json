@@ -1,0 +1,17 @@
+{
+  "name": "spweather",
+  "version": "4.0.0",
+  "description": "Joomla Weather Module",
+  "main": "gulpfile.js",
+  "repository": "git@github.com:JoomShaper/SP-Weather.git",
+  "author": "JoomShaper",
+  "license": "MIT",
+  "dependencies": {
+    "gulp": "^4.0.2",
+    "gulp-clean": "^0.4.0",
+    "gulp-clean-css": "^4.3.0",
+    "gulp-uglify-es": "^3.0.0",
+    "gulp-zip": "^5.1.0",
+    "pump": "^3.0.0"
+  }
+}
