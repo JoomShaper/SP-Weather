@@ -3,6 +3,7 @@
 /engine.js.map
 __MACOSX
 /dist.zip
+*.zip
 /bin
 /cache
 /cli
