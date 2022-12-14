@@ -22,7 +22,7 @@ $api_key                = $params->get('api_key', '');
 $platform               = $params->get('platform', 'openweathermap');
 $getdataby              = $params->get('getdataby', 'locaion_name');
 $forecast_limit         = $params->get('forecast', '7');
-$moduleclass_sfx        = htmlspecialchars($params->get('moduleclass_sfx'), ENT_COMPAT, 'UTF-8');
+$moduleclass_sfx        = htmlspecialchars($params->get('moduleclass_sfx') ?? '', ENT_COMPAT, 'UTF-8');
 
 
 if( $platform == 'apixu' ){
