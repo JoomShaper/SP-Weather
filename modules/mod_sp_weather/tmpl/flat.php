@@ -14,20 +14,20 @@ use Joomla\CMS\HTML\HTMLHelper;
 
 if ( $getdataby == 'locaion_id' && $platform == 'openweathermap' ) {
     $country        = ( isset($data['current']->sys->country) && $data['current']->sys->country ) ? $data['current']->sys->country : '';
-    $location       = ( trim($params->get('locationTranslated')) =='' ) ? $data['current']->name .  ', ' . $country : $params->get('locationTranslated');
+    $location       = ( trim((string)$params->get('locationTranslated')) =='' ) ? $data['current']->name .  ', ' . $country : $params->get('locationTranslated');
 } else {
     if ($platform == 'weatherbit') {
         $city       = ( isset($data['current']->city_name) && $data['current']->city_name ) ? $data['current']->city_name : '';
         $country    = ( isset($data['current']->country_code) && $data['current']->country_code ) ? $data['current']->country_code : '';
-        $location   = ( trim($params->get('locationTranslated'))=='' ) ? $city .  ', ' . $country : $params->get('locationTranslated');
+        $location   = ( trim((string)$params->get('locationTranslated'))=='' ) ? $city .  ', ' . $country : $params->get('locationTranslated');
     } elseif ($platform == 'darksky') {
-        $location   = ( trim($params->get('locationTranslated'))=='' ) ? str_replace('_', ' ', $location) : $params->get('locationTranslated');
+        $location   = ( trim((string)$params->get('locationTranslated'))=='' ) ? str_replace('_', ' ', $location) : $params->get('locationTranslated');
     } elseif ($platform == 'yahoo') {
         $city       = ( isset($data['current']->sys->city) && $data['current']->sys->city ) ? $data['current']->sys->city : '';
         $country    = ( isset($data['current']->sys->country) && $data['current']->sys->country ) ? $data['current']->sys->country : '';
-        $location   = ( trim($params->get('locationTranslated'))=='' ) ? $city .  ', ' . $country : $params->get('locationTranslated');
+        $location   = ( trim((string)$params->get('locationTranslated'))=='' ) ? $city .  ', ' . $country : $params->get('locationTranslated');
     } else { 
-        $location   = ( trim($params->get('locationTranslated'))=='' ) ? $params->get('location') : $params->get('locationTranslated');
+        $location   = ( trim((string)$params->get('locationTranslated'))=='' ) ? $params->get('location') : $params->get('locationTranslated');
     }
 }
 
