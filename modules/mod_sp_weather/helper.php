@@ -2,7 +2,7 @@
 /**
  * @package mod_sp_weather
  * @author JoomShaper http://www.joomshaper.com
- * @copyright Copyright (c) 2010 - 2021 JoomShaper
+ * @copyright Copyright (c) 2010 - 2024 JoomShaper
  * @license http://www.gnu.org/licenses/gpl-2.0.html GNU/GPLv2 or later
 */
 
@@ -19,7 +19,8 @@ class modSPWeatherHelper {
     private $location;
     private $forecast_limit;
     private $getdataby;
-    private $locaion_id;
+    private $location_id;
+    private $location_ip;
     private $location_latlon;
     private $api_key;
     private $y_appid;
@@ -41,16 +42,13 @@ class modSPWeatherHelper {
     * @param int $id
     */
     public function __construct($params, $id) {
-        
-        jimport('joomla.filesystem.file');
-        jimport('joomla.filesystem.folder');
         $this->params           = $params;
         $this->moduleID         = $id;
         $this->moduledir        = basename(dirname(__FILE__));
         $this->location         = str_replace(', ', ',', $this->params->get('location', 'London,GB'));
         $this->forecast_limit   = $this->params->get('forecast', '7');
         $this->getdataby        = $this->params->get('getdataby', 'locaion_name');
-        $this->locationid       = $this->params->get('locationid', '2643743');
+        $this->location_id      = $this->params->get('locationid', '2643743');
         $this->location_latlon  = $this->params->get('location_latlon', '48.139130, 11.580220');
         $this->location_ip      = $this->params->get('location_ip', '88.198.50.103');
         $this->platform         = $this->params->get('platform', 'openweathermap');
