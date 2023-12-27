@@ -6,7 +6,7 @@
  * @license http://www.gnu.org/licenses/gpl-2.0.html GNU/GPLv2 or later
 */
 
-//no direct accees
+//no direct access
 defined ('_JEXEC') or die ('Restricted access');
 
 use Joomla\CMS\Date\Date;
