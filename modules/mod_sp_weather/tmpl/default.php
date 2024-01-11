@@ -2,11 +2,11 @@
 /**
  * @package mod_sp_weather
  * @author JoomShaper http://www.joomshaper.com
- * @copyright Copyright (c) 2010 - 2021 JoomShaper
+ * @copyright Copyright (c) 2010 - 2024 JoomShaper
  * @license http://www.gnu.org/licenses/gpl-2.0.html GNU/GPLv2 or later
 */
 
-//no direct accees
+//no direct access
 defined ('_JEXEC') or die ('Restricted access');
 
 use Joomla\CMS\Date\Date;
@@ -15,20 +15,20 @@ use Joomla\CMS\HTML\HTMLHelper;
 
 if ( $getdataby == 'locaion_id' && $platform == 'openweathermap' ) {
     $country = ( isset($data['current']->sys->country) && $data['current']->sys->country ) ? $data['current']->sys->country : '';
-    $location   = (trim($params->get('locationTranslated')) =='') ? $data['current']->name .  ', ' . $country : $params->get('locationTranslated');
+    $location   = (trim($params->get('locationTranslated') ?? '') =='') ? $data['current']->name .  ', ' . $country : $params->get('locationTranslated');
 } else {
     if ($platform == 'weatherbit') {
         $city      = ( isset($data['current']->city_name) && $data['current']->city_name ) ? $data['current']->city_name : '';
         $country    = ( isset($data['current']->country_code) && $data['current']->country_code ) ? $data['current']->country_code : '';
-        $location   = (trim($params->get('locationTranslated'))=='') ? $city .  ', ' . $country : $params->get('locationTranslated');
+        $location   = (trim($params->get('locationTranslated') ?? '')=='') ? $city .  ', ' . $country : $params->get('locationTranslated');
     } elseif ($platform == 'darksky') {
-        $location   = (trim($params->get('locationTranslated'))=='') ? str_replace('_', ' ', $location) : $params->get('locationTranslated');
+        $location   = (trim($params->get('locationTranslated') ?? '')=='') ? str_replace('_', ' ', $location) : $params->get('locationTranslated');
     } elseif ($platform == 'yahoo') {
         $city      = ( isset($data['current']->sys->city) && $data['current']->sys->city ) ? $data['current']->sys->city : '';
         $country    = ( isset($data['current']->sys->country) && $data['current']->sys->country ) ? $data['current']->sys->country : '';
-        $location   = (trim($params->get('locationTranslated'))=='') ? $city .  ', ' . $country : $params->get('locationTranslated');
+        $location   = (trim($params->get('locationTranslated') ?? '')=='') ? $city .  ', ' . $country : $params->get('locationTranslated');
     } else { 
-        $location   = (trim($params->get('locationTranslated'))=='') ? $params->get('location') : $params->get('locationTranslated');
+        $location   = (trim($params->get('locationTranslated') ?? '')=='') ? $params->get('location') : $params->get('locationTranslated');
     }
 }
 
@@ -81,7 +81,6 @@ $data = $data['query']['results']['channel'];
                         
                         $compass = array('N', 'NNE', 'NE', 'ENE', 'E', 'ESE', 'SE', 'SSE', 'S', 'SSW', 'SW', 'WSW', 'W', 'WNW', 'NW', 'NNW', 'N');
                         $data['wind']['direction'] =  (isset($data['wind']['direction']) && $data['wind']['direction']) ? $compass[round($data['wind']['direction'] / 22.5)] . Text::_('SP_WEATHER_AT') : '';
-                       
 
                         echo Text::_($data['wind']['direction']) . $helper->Numeric2Lang($data['wind']['speed']) . ' ' . Text::_(strtoupper($data['units']['speed'])); ?>
                     </div>
