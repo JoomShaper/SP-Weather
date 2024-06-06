@@ -50,7 +50,7 @@ gulp.task("clean_build", function () {
 });
 
 gulp.task("clean_zip", function () {
-  return gulp.src("./mod_sp_weather_v4.0.1.zip", { read: false, allowEmpty: true }).pipe(clean());
+  return gulp.src("./mod_sp_weather_v4.0.2.zip", { read: false, allowEmpty: true }).pipe(clean());
 });
 
 gulp.task(
