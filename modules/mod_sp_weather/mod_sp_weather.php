@@ -43,7 +43,7 @@ if( $api_key == '' && $platform != 'yahoo' ){
 }
 
 // if not API KEY throw error 
-if( $platform == 'openweathermap' && $getdataby != 'latlon' && $forecast_limit != 'disabled' ){
+if( $platform == 'openweathermap' && $api_key == '' ){
     $html = '<p class="alert alert-warning">' . Text::_('MOD_SPWEATHER_ERROR_LOCATION_NOT_ALLOWED') .'</p>';
     echo $html;
     return false;
@@ -107,9 +107,9 @@ if($data['status']) {
         {
             $data['query']['results']['channel']['item']['condition']['text'] = $data['current']->weather[0]->description;
             $data['query']['results']['channel']['item']['condition']['code'] = $data['current']->weather[0]->icon;
-            $data['query']['results']['channel']['atmosphere']['humidity'] = $data['current']->humidity;
+            $data['query']['results']['channel']['atmosphere']['humidity'] = isset($data['current']->humidity) ? $data['current']->humidity : $data['current']->main->humidity;
             $data['query']['results']['channel']['units']['speed'] = Text::_('SP_WEATHER_WIND_SPEED_UNIT_MS');
-            $data['query']['results']['channel']['wind']['speed'] = round($data['current']->wind_speed, 2);
+            $data['query']['results']['channel']['wind']['speed'] = isset($data['current']->humidity) ? round($data['current']->wind_speed, 2) : round($data['current']->wind->speed, 2);
             $data['query']['results']['channel']['wind']['direction'] = (isset($data['current']->wind_deg) && $data['current']->wind_deg) ? $data['current']->wind_deg : '';
         }
     }
@@ -145,7 +145,7 @@ if($data['status']) {
             }
             else
             {
-                $data['query']['results']['channel']['item']['condition']['temp']  = $data['current']->temp;
+                $data['query']['results']['channel']['item']['condition']['temp']  = isset($data['current']->temp) ? $data['current']->temp : $data['current']->main->temp;
             }
         }
     }
