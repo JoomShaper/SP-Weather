@@ -42,7 +42,7 @@ gulp.task(
 );
 
 gulp.task("zip_it", function () {
-  return gulp.src("./build/**/*.*").pipe(zip("mod_sp_weather_v4.0.1.zip")).pipe(gulp.dest("./"));
+  return gulp.src("./build/**/*.*").pipe(zip("mod_sp_weather_v4.1.0.zip")).pipe(gulp.dest("./"));
 });
 
 gulp.task("clean_build", function () {
@@ -50,12 +50,12 @@ gulp.task("clean_build", function () {
 });
 
 gulp.task("clean_zip", function () {
-  return gulp.src("./mod_sp_weather_v4.0.1.zip", { read: false, allowEmpty: true }).pipe(clean());
+  return gulp.src("./mod_sp_weather_v4.1.0.zip", { read: false, allowEmpty: true }).pipe(clean());
 });
 
 gulp.task(
   "default",
   gulp.series("clean_zip", "clean_build", "copy", "minify", "zip_it", function () {
-    return gulp.src("./build/**/*.*").pipe(zip("mod_sp_weather_v4.0.1.zip")).pipe(gulp.dest("./"));
+    return gulp.src("./build/**/*.*").pipe(zip("mod_sp_weather_v4.1.0.zip")).pipe(gulp.dest("./"));
   }),
 );
