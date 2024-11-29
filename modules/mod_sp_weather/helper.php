@@ -183,7 +183,7 @@ class modSPWeatherHelper {
                 $this->api  = 'https://weather-ydn-yql.media.yahoo.com/forecastrss';
             } else {
                 if($this->getdataby == 'locaion_id') {
-                    $this->api       = 'http://api.openweathermap.org/data/2.5/weather?id='. $this->locationid .'&units=metric&appid=' . $this->api_key;
+                    $this->api       = 'http://api.openweathermap.org/data/2.5/weather?id='. $this->location_id .'&units=metric&appid=' . $this->api_key;
                 } 
                 elseif ($this->getdataby == 'latlon')
                 {
