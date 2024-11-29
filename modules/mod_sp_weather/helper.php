@@ -164,7 +164,7 @@ class modSPWeatherHelper {
                 if ($this->getdataby == 'latlon')
                 {
                     $location_latlon = explode(',', str_replace(', ', ',', $this->location_latlon));
-                    $this->api  = 'https://api.openweathermap.org/data/2.5/onecall?lat='. $location_latlon[0] .'&lon='. $location_latlon[1] .'&exclude=current,minutely,hourly,alerts&units=metric&appid=' . $this->api_key;
+                    $this->api  = 'https://api.openweathermap.org/data/2.5/forecast/daily?lat='. $location_latlon[0] .'&lon='. $location_latlon[1] .'&exclude=current,minutely,hourly,alerts&units=metric&appid=' . $this->api_key;
                 }
             }
         } else {
@@ -188,7 +188,7 @@ class modSPWeatherHelper {
                 elseif ($this->getdataby == 'latlon')
                 {
                     $location_latlon = explode(',', str_replace(', ', ',', $this->location_latlon));
-                    $this->api  = 'https://api.openweathermap.org/data/2.5/onecall?lat='. $location_latlon[0] .'&lon='. $location_latlon[1] .'&exclude=minutely,hourly,daily,alerts&units=metric&appid=' . $this->api_key;
+                    $this->api  = 'https://api.openweathermap.org/data/2.5/weather?lat='. $location_latlon[0] .'&lon='. $location_latlon[1] .'&exclude=minutely,hourly,daily,alerts&units=metric&appid=' . $this->api_key;
                 }
                 else {
                     $this->api  = 'https://api.openweathermap.org/data/2.5/weather?q='. $this->location .'&units=metric&appid=' . $this->api_key;
