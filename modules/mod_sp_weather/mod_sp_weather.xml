@@ -27,9 +27,7 @@
 
 				<field name="platform" type="list" default="openweathermap" label="MOD_SPWEATHER_API_PLATFORM" description="MOD_SPWEATHER_API_PLATFORM_DESC">
 					<option value="openweathermap">MOD_SPWEATHER_API_PLATFORM_OPENMAPWEATHER</option>	
-					<option value="weatherbit">MOD_SPWEATHER_API_PLATFORM_WEATHERBIT</option>	
-					<option value="darksky">MOD_SPWEATHER_API_PLATFORM_DARKSKY</option>	
-					<option value="yahoo">MOD_SPWEATHER_API_PLATFORM_YAHOO</option>	
+					<option value="weatherbit">MOD_SPWEATHER_API_PLATFORM_WEATHERBIT</option>
 				</field>
 
 				<field name="api_key_note_omp" type="note" label="MOD_SPWEATHER_APIKEY_OPENWEATHERMAP_DESC" showon="platform:openweathermap"/>
