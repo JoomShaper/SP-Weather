@@ -129,7 +129,7 @@ class modSPWeatherHelper {
                         $this->throwError('CANNOT_FIND_FORECAST_DATA');
                     }
                 } else {
-                    if( count((array)$forecast_decode->daily) && $forecast_decode->daily ) {
+                    if( isset($forecast_decode->daily) && count((array)$forecast_decode->daily) && $forecast_decode->daily ) {
                         $this->results['forecast_status'] = true;
                         $this->results['forecast'] = (object) $forecast_decode;
                     } else {
