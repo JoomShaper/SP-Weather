@@ -8,7 +8,9 @@
 	<authorEmail>support@joomshaper.com</authorEmail>
 	<authorUrl>www.joomshaper.com</authorUrl>
 	<version>4.1.1</version>
-	<description>Display the current weather and forecast for a location. The module supports multiple weather service providers: OpenWeatherMap, Dark Sky, Weatherbit, Yahoo Weather, and Apixu.</description>
+	<description>This module uses API to retrieve weather data. Site visitors can access the website's current weather conditions, forecasts, and other weather-related information. New version proudly made by JoomShaper.com.
+	Note! Newly created Weather API key will need a few minutes to be activated and show weather data, so you might see an API error in the meantime.
+	</description>
 
 	<languages>
 		<language tag="en-GB">en-GB.mod_sp_weather.ini</language>
