@@ -8,7 +8,7 @@
 	<authorEmail>support@joomshaper.com</authorEmail>
 	<authorUrl>www.joomshaper.com</authorUrl>
 	<version>4.1.1</version>
-	<description>Weather module by JoomShaper.com using 5 API platform.</description>
+	<description>Display the current weather and forecast for a location. The module supports multiple weather service providers: OpenWeatherMap, Dark Sky, Weatherbit, Yahoo Weather, and Apixu.</description>
 
 	<languages>
 		<language tag="en-GB">en-GB.mod_sp_weather.ini</language>
@@ -32,36 +32,23 @@
 
 				<field name="api_key_note_omp" type="note" label="MOD_SPWEATHER_APIKEY_OPENWEATHERMAP_DESC" showon="platform:openweathermap"/>
 				<field name="api_key_note_wb" type="note" label="MOD_SPWEATHER_APIKEY_WEATHERBIT_DESC" showon="platform:weatherbit"/>
-				<field name="api_key_note_ds" type="note" label="MOD_SPWEATHER_APIKEY_DARKSKY_DESC" showon="platform:darksky"/>
 				<field name="api_key" type="text" label="MOD_SPWEATHER_APIKEY" description="MOD_SPWEATHER_APIKEY_DESC" showon="platform!:yahoo"/>
-
-				<!-- yahoo credential -->
-				<field name="yappid_note" type="note" label="MOD_SPWEATHER_APP_ID_NOTE" showon="platform:yahoo"/>
-				<field name="y_app_id" type="text" label="MOD_SPWEATHER_APP_ID" description="MOD_SPWEATHER_APP_ID_DESC" default="3vYYEy30" showon="platform:yahoo"/>
-				<field name="y_client_id" type="text" label="MOD_SPWEATHER_CLIENT_ID" description="MOD_SPWEATHER_CLIENT_ID_DESC" default="dj0yJmk9NFZaM2lMQUpvWUlpJmQ9WVdrOU0zWlpXVVY1TXpBbWNHbzlNQS0tJnM9Y29uc3VtZXJzZWNyZXQmeD02ZQ--" showon="platform:yahoo"/>
-				<field name="y_client_secret" type="text" label="MOD_SPWEATHER_CLIENT_SECRET" description="MOD_SPWEATHER_CLIENT_SECRET_DESC"  default="f72fcfd3cbda626223778eb01af31f2cb1e2cfa9" showon="platform:yahoo"/>
 
 				<field name="getdataby" type="list" label="MOD_SPWEATHER_GET_DATA_BY" default="locaion_name" description="MOD_SPWEATHER_GET_DATA_BY_DESC" showon="platform:openweathermap,weatherbit">
 					<option value="locaion_name">MOD_SPWEATHER_GET_DATA_BY_LOCATION_NAME</option>
 					<option value="locaion_id" showon="platform:openweathermap">MOD_SPWEATHER_GET_DATA_BY_LOCATION_ID</option>
 					<option value="latlon" showon="platform:weatherbit,openweathermap">MOD_SPWEATHER_GET_DATA_BY_LATLON</option>
-					<option value="ip" showon="platform:weatherbit">MOD_SPWEATHER_GET_DATA_BY_IP</option>
 				</field>
 
 				<!-- get data by location -->
-				<field name="location" type="text" default="London" label="LOCATION" description="LOCATION_DESC" showon="getdataby:latlon[AND]platform:openweathermap[OR]getdataby:locaion_name[AND]platform!:darksky" />
+				<field name="location" type="text" default="London" label="LOCATION" description="LOCATION_DESC" showon="getdataby:latlon[AND]platform:openweathermap[OR]getdataby:locaion_name" />
 				<!-- get data by location id -->
 				<field name="locationid_note" type="note" label="MOD_SPWEATHER_LOCATION_ID_OPENMAPWEATHER_NOTE" showon="getdataby:locaion_id"/>
 				<field name="locationid" type="text" default="" label="MOD_SPWEATHER_LOCATION_ID" description="MOD_SPWEATHER_LOCATION_ID_DESC" showon="getdataby:locaion_id" />
 
 				<!-- get data by location laglon -->
-				<field name="location_latlon_note" type="note" label="MOD_SPWEATHER_LATLON_WEATHERBIT_NOTE" showon="platform:darksky,platform:weatherbit[OR]getdataby:latlon"/>
-				<field name="location_latlon" type="text" default="48.139130, 11.580220" label="MOD_SPWEATHER_LATLON" description="MOD_SPWEATHER_LATLON_DESC" showon="platform:darksky,platform:weatherbit[OR]getdataby:latlon" />
-
-				<!-- get data by location ip -->
-				<field name="location_ip_note" type="note" label="MOD_SPWEATHER_IP_WEATHERBIT_NOTE" showon="getdataby:ip[AND]platform:weatherbit"/>
-				<field name="location_ip" type="text" default="88.198.50.103" label="MOD_SPWEATHER_MOD_LOCATION_IP" description="MOD_SPWEATHER_MOD_LOCATION_IP_DESC" showon="getdataby:ip[AND]platform:weatherbit" />
-
+				<field name="location_latlon_note" type="note" label="MOD_SPWEATHER_LATLON_WEATHERBIT_NOTE" showon="platform:weatherbit[OR]getdataby:latlon"/>
+				<field name="location_latlon" type="text" default="48.139130, 11.580220" label="MOD_SPWEATHER_LATLON" description="MOD_SPWEATHER_LATLON_DESC" showon="platform:weatherbit[OR]getdataby:latlon" />
 
 				<field name="locationTranslated" type="text" default="" label="LOCATION_TRANSLATED" description="LOCATION_TRANSLATED_DESC" />
 				<field name="city" type="radio" class="btn-group" default="1" label="CITY" description="CITY_DESC">
@@ -80,7 +67,7 @@
 					<option value="0">HIDE</option>
 					<option value="1">SHOW</option>
 				</field>
-				<field name="forecast" type="list" default="4" label="FORECAST" description="FORECAST_DESC">
+				<field name="forecast" type="list" default="disabled" label="FORECAST" description="FORECAST_DESC">
 					<option value="1">1DAY</option>
 					<option value="2">2DAYS</option>			
 					<option value="3">3DAYS</option>			
