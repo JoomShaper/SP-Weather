@@ -2,13 +2,14 @@
 /**
  * @package mod_sp_weather
  * @author JoomShaper http://www.joomshaper.com
- * @copyright Copyright (c) 2010 - 2024 JoomShaper
+ * @copyright Copyright (c) 2010 - 2025 JoomShaper
  * @license http://www.gnu.org/licenses/gpl-2.0.html GNU/GPLv2 or later
  */
 
 //no direct access
 defined ('_JEXEC') or die ('Restricted access');
 
+use Joomla\CMS\Date\Date;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\HTML\HTMLHelper;
 
@@ -106,7 +107,7 @@ $weather_code = $data['item']['condition']['code'];
         <?php
         $fcast = (int) $params->get('forecast');
         $j = 1;
-        $date = new JDate();
+        $date = new Date();
         foreach($forecast as $i=>$value ) {
             if ($platform == 'weatherbit') {
                 $min_temp       = (isset($value->min_temp) && $value->min_temp) ? $value->min_temp : $value->temp;

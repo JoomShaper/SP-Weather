@@ -10,7 +10,6 @@
 defined ('_JEXEC') or die ('Restricted access');
 
 use Joomla\CMS\Language\Text;
-use Joomla\CMS\Filesystem\Folder;
 
 class modSPWeatherHelper {
     
@@ -199,8 +198,8 @@ class modSPWeatherHelper {
         $results['data'] = array();
         // check cache dir or create cache dir
         $cache_path = JPATH_CACHE.'/'.$this->moduledir;
-        if (!Folder::exists($cache_path)){
-            Folder::create(JPATH_CACHE.'/'.$this->moduledir.'/'); 
+        if (!is_dir($cache_path)){
+            mkdir($cache_path, 0755, true);
         }
         
         if ($type == 'forecast') { // if data is forecast
@@ -475,7 +474,7 @@ class modSPWeatherHelper {
 
     /**
     * Run function to load data from source
-    * @return string
+    * @return mixed
     */
     public function getData() {
         return $this->results;
